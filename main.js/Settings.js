@@ -15,3 +15,37 @@ const RestApiHeaders = function(xhr) {
 Parse.serverURL = cServerUrl;
 const cUsuariosUrl = `${cServerUrl}/classes/Usuarios`;
 const CFuncionName = 'userExists';
+
+
+var RulesLoginNovaSenha =
+        {
+             xLoginNovaSenha : 
+             {
+                minlength : 6,
+                required : true
+             },
+             xLoginConfirmaSenha :
+             {
+                 equalTo: "#txtLoginNovaSenha"
+             }
+        };
+var MessagesLoginNovaSenha =
+        {
+              xLoginNovaSenha : {
+                      required : 'Defina uma senha de acesso',
+                      minlength : jQuery.validator.format("a senha deve ter pelo menos {0} caracteres!")
+              },
+              xLoginConfirmaSenha : {
+                      equalTo : "A confirmação de senha deve ser igual a senha definida no campo acima"
+              }
+        };
+
+
+function DefaultErrorPlacement(label, element) {
+            label.addClass('mt-2 text-danger');
+            label.insertAfter(element);
+          };
+function DefaultHighlight(element, errorClass) {
+                  $(element).parent().addClass('has-danger')
+                  $(element).addClass('form-control-danger')
+          };

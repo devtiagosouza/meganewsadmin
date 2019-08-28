@@ -11,37 +11,7 @@ function  configuraModalNovoUsuario()
 
     $("#form-criarsenha").validate({
         debug: true,
-        submitHandler: function(form) {
-              //criar o usuário   
-              const user = new Parse.User()
-               
-              var xUserName = $("#ModalUserName").text().toString();
-              var xEmail = $("#ModalEmail").text().toString();
-              var xPass = $("#txtLoginNovaSenha").val().toString();
-  
-              user.set('username', xUserName);
-              user.set('email', xEmail);
-              user.set('password',xPass);
-  
-              user.signUp().then((user) => {
-                  //depois de cadastrar, fechar o modal 
-                  $('#ModalCriarUsuario').modal('hide');
-                 
-                  console.log('User signed up', user);
-                  $('#ModalLogin').modal({
-                    keyboard : false,
-                    focus : true,
-                    backdrop : false
-                  });
-  
-                   UpdateUser()
-  
-                  swal('Admin Cadastrado','Novo Usuário Administrador cadastrado com sucesso!\n','success');
-              }).catch(error => {
-                 swal('Erro!','Erro ao cadastrar usuário \n'+error,'error');
-                 console.error('Erro ao cadastrar usuário', error);
-              });
-        },
+        submitHandler: onCriarUsuario(),
         rules :
         {
              xLoginNovaSenha : 
@@ -94,24 +64,7 @@ function configuraModalLogin()
     $("#form-login").validate({
       debug: true,
 
-      submitHandler: function(form) {
-        //verificar se existe o email já está cadastrado
-                var email = $('#txtLoginUsuario').val().toString(); 
-                var senha = $('#txtLoginSenha').val().toString();
-
-                Parse.User.logIn(email,senha).then(
-                  (user) => {
-                  // Do stuff after successful login
-                    // console.log(user);
-                            $('.container-scroller').show();
-                           }
-                ).catch(
-                    (error) => {
-                        VerificaSeEhAdmin(email);
-                    }
-                    //verifica se existe o usuario 
-                );
-      },
+      submitHandler: onLogin(),
       rules: 
       {
         xLoginUsuario : {

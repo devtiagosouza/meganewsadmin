@@ -15,7 +15,7 @@ function onLogin(form)
       Parse.User.logIn(email,senha).then(
         (user) => {
         // Do stuff after successful login
-          // console.log(user);
+         // console.log(user);
                   $('.container-scroller').show();
                 }
       ).catch(
@@ -27,9 +27,38 @@ function onLogin(form)
 }
 
 
-function onCriarUsuario()
-{
 
+
+function onCriarUsuario(form)
+{
+      //criar o usuário   
+      const user = new Parse.User()
+               
+      var xUserName = $("#ModalUserName").text().toString();
+      var xEmail = $("#ModalEmail").text().toString();
+      var xPass = $("#txtLoginNovaSenha").val().toString();
+
+      user.set('username', xUserName);
+      user.set('email', xEmail);
+      user.set('password',xPass);
+
+      user.signUp().then((user) => {
+          //depois de cadastrar, fechar o modal 
+          $('#ModalCriarUsuario').modal('hide');
+         
+          console.log('User signed up', user);
+          $('#ModalLogin').modal({
+            keyboard : false,
+            focus : true,
+            backdrop : false
+          });
+
+          
+          swal('Admin Cadastrado','Novo Usuário Administrador cadastrado com sucesso!\n','success');
+      }).catch(error => {
+         swal('Erro!','Erro ao cadastrar usuário \n'+error,'error');
+         console.error('Erro ao cadastrar usuário', error);
+      });
 }
 
 
@@ -57,7 +86,7 @@ function ShowLogin()
 }
 function CloseLogin()
 {
-  $('#ModalLogin').modal('hide');
+   $('#ModalLogin').modal('hide');
 }
 
 function VerificaSeEhAdmin(aEmail)
