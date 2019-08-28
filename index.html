@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mega Chave Admin</title>
+
+
+    <!--PARSE SDK -->
+    <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+   
+    <script src="https://kit.fontawesome.com/51e6c9fa43.js"></script>
+    <script src="vendors/js/vendor.bundle.base.js"></script>
+    <script src="js/jquery.loadingModal.js"></script>
+    <script src="vendors/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+    <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="vendors/puse-icons-feather/feather.css">
+    <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="css/style.css">   
+    <style>
+      
+      table {
+          border-collapse: collapse;
+          font-size: 12px;
+        }
+
+        table, td, th {
+          border: 1px solid #f5f5f5;
+        }
+        tbody > tr:hover {background-color: #f5f5f5;}
+    
+        thead > tr{
+             background-color: #f5f5f5;
+             color: gray;
+             border: 1px solid #353535;
+            
+        }
+        .infoRegistroClass {
+        
+          padding-right: 15px;
+        }
+
+       #logo
+       {
+         width: 100%;
+       }
+
+       .nav-item > button
+        {
+          width: 100%;
+          background-color: white;
+          border: none;
+        }
+
+    </style>
+    <link rel="stylesheet" href="css/jquery.loadingModal.css">
+    <script src="vendors/sweetalert/sweetalert.min.js"></script>
+    <script src="vendors/jquery.avgrund/jquery.avgrund.min.js"></script>
+</head>
+
+<body >
+    <script src="vendors/jquery-validation/jquery.validate.min.js"></script>
+    <div class="container-scroller">
+            <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row navbar-success">
+                <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                    <img id="logo" src="http://meganews.com.br/wp-content/themes/meganews/img/logo-topo.png" href="http://www.meganews.com.br" alt="logo mega news" srcset="">
+                </div>
+                <div class="navbar-menu-wrapper d-flex align-items-stretch">
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                      <span class="mdi mdi-menu"></span>
+                    </button>
+                    <h3>Mega Chave Admin</h3> 
+                
+                 
+                  </div>
+            </nav>
+          
+
+           <div class="container-fluid page-body-wrapper">
+                <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                  <ul class="nav">
+                      <li class="nav-item nav-profile">
+                          <div class="nav-link d-flex">
+                            <div class="profile-image">
+                              <img src="https://placehold.it/100x100" alt="imagem">
+                              <span class="online-status online"></span> <!--change class online to offline or busy as needed-->
+                            </div>
+                            <div class="profile-name">
+                              <p class="name">
+                                Usuário
+                              </p>
+                              <p class="designation">
+                                Perfil
+                              </p>
+                            </div>
+                          </div>
+                      </li>
+                      <li class="nav-item nav-category">
+                          <span class="nav-link">Menu</span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="true" aria-controls="page-layouts">
+                              <i class="icon-box menu-icon"></i>
+                              <span class="menu-title">Usuários</span>
+                              <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse show" id="page-layouts" style="">
+                              <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"><button id="btnListar" type="button" class="btn btn-secondary btn-sm"  value="Listar" onclick="ListarUsers()"><i class="mdi mdi-loop"></i>atualizar</button></li>
+                                <li class="nav-item"><button id="btnCadastrar"  data-toggle="modal" type="button" data-target="#exampleModal-4" class="btn btn-secondary btn-sm"  value="Cadastrar"><i class="fa fa-address-card"></i>cadastrar</button>
+                                </li>
+                              </ul>
+                            </div>
+                          </li>                
+                  </ul>
+                </nav>
+
+                <div class="main-panel" id="divBotoesPrincipais">
+                        <div>                               
+                                <table id = "tbUsers">
+                                  <thead>
+                                        <tr id="trHead" class = "trHeadClass">
+                                                                    
+                                        </tr> 
+                                    </thead>
+                                    <tbody>
+                                            
+                                    </tbody>
+                                </table>
+                              
+                        </div>    
+                        <footer class="footer">
+                            <div class="container-fluid clearfix">
+                              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2019 <a href="http://www.meganews.com.br/" target="_blank">Mega News</a>. All rights reserved.</span>
+                            </div>
+                        </footer>   
+                </div>
+
+          </div>
+
+    </div> <!--final do div controller-->
+
+
+                 <!--MODAL LOGIN -->
+                 <div class="modal fade" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="auth-form-light text-left p-5">
+                                <h2>Login</h2>
+                                <h4 class="font-weight-light">Mega Chave App Admin</h4>
+                                <form id="form-login" class="pt-5">
+                                  <div class="form-group">
+                                    
+                                      <label for="txtLoginUsuario">Usuário</label>
+                                      <i class="mdi mdi-account"></i>
+                                      <input type="email" class="form-control" id="txtLoginUsuario" name="xLoginUsuario" placeholder="E-mail" required>
+                                    
+                                  </div>
+                                  <div class="form-group">
+                                   
+                                      <label for="txtLoginSenha">Senha</label>
+                                      <i class="mdi mdi-eye"></i>
+                                      <input type="password" class="form-control" id="txtLoginSenha" name="xLoginSenha" placeholder="Senha">
+
+                                  </div>
+                                  <div class="mt-5">
+                                     
+                                     <button class="btn btn-block btn-success btn-lg font-weight-medium" >Login</button>
+                                  </div>
+                                  <div class="mt-3 text-center">
+                                   
+                                  </div>
+                                </form>
+                              </div>
+                         </div>
+                    </div>
+                </div>
+               
+
+                    <!--  modal -->
+                <!-- MODAL CADASTRO DE USUARIO-->
+                <div class="modal fade" id="exampleModal-4" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="titulo-title">Novo Usuário</h5>
+                      </div>
+                      <div class="modal-body">
+                        <form class="cmxform" id="form-cadastrar" method="GET"  action=""  >
+                          <fieldset>
+                  
+                          <div class="form-group" >
+                            <label for="txtNome" class="col-form-label">Nome:</label>
+                            <input type="text" class="form-control" id="txtNome" name="xnome" onchange="txtNome_change()"  minlength="5" required>
+                          </div>
+  
+                            <div class="form-group" >
+                            <label for="txtEmail" class="col-form-label">E-mail:</label>
+                            <input type="email" class="form-control" id="txtEmail" name="xemail"  pattern=".+@meganews.com.br" required> 
+                          </div>
+                          <input type="checkbox" name="Ativo" value="Ativo" id="chkAtivo"  checked>Ativo</input><br>
+                          <input type="checkbox" name="Desenvolvedor" id="chkDesenvolvedor"  >Desenvolvedor</input><br>
+                          <input type="checkbox" name="Administrador" id="chkAdmin">Admin</input>
+                        
+                        <div class="modal-footer">
+                          <button type="submit" id="btn-cadastrar" class="btn btn-success" >Ok</button>
+                          <button type="button" id="btn-cancelar" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                        </div>
+                          </fieldset>
+                        </form>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  </div>
+   
+  <script src="js/off-canvas.js"></script>
+  <script src="js/hoverable-collapse.js"></script>
+  <script src="js/misc.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/todolist.js"></script>
+  <script src="js/modal-demo.js"></script>
+<script src="js/alerts.js"></script>
+<script src="js/avgrund.js"></script>
+
+<script src = "main.js/MegaChaveAdmin.js"></script>
+<script src="js/dashboard.js"></script>
+
+
+</body>
+</html>

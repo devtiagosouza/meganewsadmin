@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link href='./css/mainstyle.css' rel='stylesheet'>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mega Chave Service Manager</title>
+</head>
+     
+<body>
+     <div>
+          <h1>Service Manager</h1>      
+          <label for="edtDataVencimento">Limit: </label>
+          <input type="date" name="data" id="edtDataVencimento"></input>
+          <input type="button" value="atualizar"></input>
+     </div>
+     <form id="frmNovoUsuario" style="display: none;"  onsubmit="return CadastrarUser(this);" >
+            <label for="txtNome">Nome:</label>
+            <input aria-label="Nome" type="text" name="Nome" required id="txtNome"></input>
+          
+            <label for="txtEmail">Email:</label>
+            <input type="email" name="Email" pattern=".+@meganews.com.br" id="txtEmail" required ></input>
+
+
+          <div>
+            <input type="checkbox" name="Ativo"  id="chkAtivo" checked></input>
+            <label for="chkAtivo">Ativo</label>
+
+            <input type="checkbox" name="Desenvolvedor" id="chkDesenvolvedor"></input>
+            <label for="chkDesenvolvedor">Desenvolvedor</label>
+
+            <input type="checkbox"   name="Administrador" id="chkAdmin"></input>
+            <label for="chkAdmin">Admin</label>
+        </div>
+
+
+            <input type="submit" class="btn-enviarClass" value="Cadastrar"> </input>
+     </form>
+     <div>
+          <h2>Users</h2>
+        <!--<input type="text" class="pesquisaClass" name="pesquisar" placeholder="Pesquisar..">-->  
+          <input id="btnListar" type="button" class="ui-button" value="Listar" onclick="ListarUsers()"></input>
+          <input id="btnCadastrar" type="button" class="ui-button" value="Cadastrar" onclick="HabilitaCadastro()"></input>
+          
+         
+          <table id = "tbUsers">
+             <thead>
+                   <tr class = "trHeadClass">
+                         <th>ID</th>
+                         <th>User</th>
+                         <th>E-mail</th>
+                         <th>Registrado?</th>
+                         <th>Data Registro</th>
+                         <th>imei Number</th>
+                         <th>Ativo?</th>
+                         <th>Des.?</th>
+                         <th>Admin?</th>
+                         <th>Modelo Aparelho</th>
+                         <th>Vers. Android</th>
+                         <th></th>
+                         
+                   </tr> 
+         
+               </thead>
+               <tbody>
+                      
+               </tbody>
+           </table>
+     </div>
+     
+</body>
+<script src = "js/index.js"></script>
+<!--jQuery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+</html>
