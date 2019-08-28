@@ -4,8 +4,8 @@
      'Settings.js',
      'Config.js',
      'CadastroAcesso.js',
-     'Runtime.js',
-     'UserAuth.js'
+     'UserAuth.js',
+     'Runtime.js'
 ].
 forEach(script => {
   var imported = document.createElement('script');
@@ -14,6 +14,8 @@ forEach(script => {
 });
 
 EmptyTable();
+
+
 
 
 
@@ -230,5 +232,7 @@ function ListarUsers()
               }
     );
 }
+
+
 
 

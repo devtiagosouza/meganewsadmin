@@ -17,6 +17,15 @@ const cUsuariosUrl = `${cServerUrl}/classes/Usuarios`;
 const CFuncionName = 'userExists';
 
 
+function DefaultErrorPlacement(label, element) {
+    label.addClass('mt-2 text-danger');
+    label.insertAfter(element);
+  };
+function DefaultHighlight(element, errorClass) {
+          $(element).parent().addClass('has-danger')
+          $(element).addClass('form-control-danger')
+  };
+
 var RulesLoginNovaSenha =
         {
              xLoginNovaSenha : 
@@ -40,12 +49,30 @@ var MessagesLoginNovaSenha =
               }
         };
 
+var RulesLogin = 
+[ 
+        
+        {
+          xLoginUsuario : {
+                  required : true,
+                  minlength : 5,
+                  email : true
+          },
+          xLoginSenha : {
+                  required : true,
+          }
+        },
+        {
+            xLoginUsuario : {
+                      required : 'Digite o E-mail',
+                      minlength : jQuery.validator.format("O E-mail deve ter pelo menos {0} caracteres!"),
+                      email: "O endereço de e-mail deve estar no formado xxxx@meganews.com.br"
+              },
+              xLoginSenha : {
+                      required : 'Digite a senha'
+                      
+                      
+              }
+        }
 
-function DefaultErrorPlacement(label, element) {
-            label.addClass('mt-2 text-danger');
-            label.insertAfter(element);
-          };
-function DefaultHighlight(element, errorClass) {
-                  $(element).parent().addClass('has-danger')
-                  $(element).addClass('form-control-danger')
-          };
+]

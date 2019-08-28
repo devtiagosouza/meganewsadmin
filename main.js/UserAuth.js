@@ -16,11 +16,13 @@ function onLogin(form)
         (user) => {
         // Do stuff after successful login
          // console.log(user);
-                  $('.container-scroller').show();
+               
+                  doLoginOK();
                 }
       ).catch(
           (error) => {
-              VerificaSeEhAdmin(email);
+            console.log(error);
+            VerificaSeEhAdmin(email);
           }
           //verifica se existe o usuario 
       );    
@@ -47,11 +49,7 @@ function onCriarUsuario(form)
           $('#ModalCriarUsuario').modal('hide');
          
           console.log('User signed up', user);
-          $('#ModalLogin').modal({
-            keyboard : false,
-            focus : true,
-            backdrop : false
-          });
+          ShowLogin();
 
           
           swal('Admin Cadastrado','Novo Usuário Administrador cadastrado com sucesso!\n','success');
@@ -83,6 +81,13 @@ function ShowLogin()
         focus : true,
         backdrop : false
     });
+}
+function doLoginOK()
+{
+  CloseLogin();
+  $('.container-scroller').show();
+
+  
 }
 function CloseLogin()
 {

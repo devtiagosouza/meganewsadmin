@@ -8,40 +8,14 @@
 function  configuraModalNovoUsuario()
 {
    (function($) {
-
     $("#form-criarsenha").validate({
         debug: true,
-        submitHandler: onCriarUsuario(),
-        rules :
-        {
-             xLoginNovaSenha : 
-             {
-                minlength : 6,
-                required : true
-             },
-             xLoginConfirmaSenha :
-             {
-                 equalTo: "#txtLoginNovaSenha"
-             }
-        },
-        messages:
-        {
-              xLoginNovaSenha : {
-                      required : 'Defina uma senha de acesso',
-                      minlength : jQuery.validator.format("a senha deve ter pelo menos {0} caracteres!")
-              },
-              xLoginConfirmaSenha : {
-                      equalTo : "A confirmação de senha deve ser igual a senha definida no campo acima"
-              }
-        },
-        errorPlacement: function(label, element) {
-          label.addClass('mt-2 text-danger');
-          label.insertAfter(element);
-        },
-        highlight: function(element, errorClass) {
-                $(element).parent().addClass('has-danger')
-                $(element).addClass('form-control-danger')
-        }
+        submitHandler: onCriarUsuario,
+        rules : RulesLoginNovaSenha,
+        messages: MessagesLoginNovaSenha,
+        
+        errorPlacement: DefaultErrorPlacement,
+        highlight: DefaultHighlight
     })
   })(jQuery);
 }
@@ -63,43 +37,11 @@ function configuraModalLogin()
       
     $("#form-login").validate({
       debug: true,
-
-      submitHandler: onLogin(),
-      rules: 
-      {
-        xLoginUsuario : {
-                required : true,
-                minlength : 5,
-                email : true
-        },
-        xLoginSenha : {
-                required : true,
-               
-                
-        }
-      },
-      messages:
-      {
-          xLoginUsuario : {
-                    required : 'Digite o E-mail',
-                    minlength : jQuery.validator.format("O E-mail deve ter pelo menos {0} caracteres!"),
-                    email: "O endereço de e-mail deve estar no formado xxxx@meganews.com.br"
-            },
-            xLoginSenha : {
-                    required : 'Digite a senha'
-                    
-                    
-            }
-      },
-      errorPlacement: function(label, element) {
-                                              label.addClass('mt-2 text-danger');
-                                              label.insertAfter(element);
-      },
-      highlight: function(element, errorClass) {
-                                              $(element).parent().addClass('has-danger')
-                                              $(element).addClass('form-control-danger')
-      }
-
+      submitHandler: onLogin,
+      rules : RulesLogin[0],
+      messages: RulesLogin[1],
+      errorPlacement: DefaultErrorPlacement,
+      highlight: DefaultHighlight
     });
 
 })(jQuery);
@@ -130,3 +72,5 @@ function configuraModalNovoAcesso()
 
 Parse.initialize(cApplicationID, cJavaScriptAPIKey,cMasterKey); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
  
+
+ShowLogin();
