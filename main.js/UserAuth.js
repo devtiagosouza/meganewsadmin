@@ -1,54 +1,131 @@
-(function($) {
-    $("#form-criarsenha").validate({
-        debug: true,
-        submitHandler: function(form) {
-              //criar o usuário   
-              const user = new Parse.User()
-               
-              var xUserName = $("#ModalUserName").val().toString();
-              var xEmail = $("#ModalEmail").val().toString();
-              var xPass = $("#txtLoginNovaSenha").val().toString();
-  
-              user.set('username', xUserName);
-              user.set('email', xEmail);
-              user.set('password',xPass);
-  
-              user.signUp().then((user) => {
-                 console.log('User signed up', user);
-              }).catch(error => {
-                 console.error('Error while signing up user', error);
-              });
-        },
-        rules :
+
+//verifica se deu erro de invalid sessino token, neste caso deve fazer login novamente
+function handleParseError(err) {
+    switch (err.code) {
+      case Parse.Error.INVALID_SESSION_TOKEN:
+        Parse.User.logOut();
+    }
+}
+
+function onLogin(form)
+{
+      var email = $('#txtLoginUsuario').val().toString(); 
+      var senha = $('#txtLoginSenha').val().toString();
+
+      Parse.User.logIn(email,senha).then(
+        (user) => {
+        // Do stuff after successful login
+          // console.log(user);
+                  $('.container-scroller').show();
+                }
+      ).catch(
+          (error) => {
+              VerificaSeEhAdmin(email);
+          }
+          //verifica se existe o usuario 
+      );    
+}
+
+
+function onCriarUsuario()
+{
+
+}
+
+
+
+function TemLoginCriado(objeto)
+{
+  try
+  {
+     var possui = obj.PossuiLogin;
+     return possui;
+  }
+  catch(e)
+  {
+      return false;
+  }
+}
+
+function ShowLogin()
+{
+    $('#ModalLogin').modal({
+        keyboard : false,
+        focus : true,
+        backdrop : false
+    });
+}
+function CloseLogin()
+{
+  $('#ModalLogin').modal('hide');
+}
+
+function VerificaSeEhAdmin(aEmail)
+{
+  const Usuarios = Parse.Object.extend('Usuarios');
+  const query = new Parse.Query(Usuarios);
+  query.equalTo("Email", aEmail);
+  query.find()
+  .then(
+    (results) => 
+    {
+       var obj = results[0].attributes;
+       var nomeUsuario = obj.Usuario;
+       
+        if (TemLoginCriado(obj))
         {
-             xLoginNovaSenha : 
-             {
-                minlength : 6,
-                required : true
-             },
-             xLoginConfirmaSenha :
-             {
-                 equalTo: "#txtLoginNovaSenha"
-             }
-        },
-        messages:
-        {
-              xLoginNovaSenha : {
-                      required : 'Defina uma senha de acesso',
-                      minlength : jQuery.validator.format("a senha deve ter pelo menos {0} caracteres!")
-              },
-              xLoginConfirmaSenha : {
-                      equalTo : "A confirmação de senha deve ser igual a senha definida no campo acima"
-              }
-        },
-        errorPlacement: function(label, element) {
-          label.addClass('mt-2 text-danger');
-          label.insertAfter(element);
-        },
-        highlight: function(element, errorClass) {
-                $(element).parent().addClass('has-danger')
-                $(element).addClass('form-control-danger')
+          swal('login','Login ou senha inválidos','error');
+         
         }
-    })
-  })(jQuery)
-  
+        else
+        {
+          CadastraNovoAdmin(aEmail,nomeUsuario);
+        }
+
+    },
+    (error) => {
+       swal('inválido','Usuário inválido '+error,'error');
+       handleParseError(error);
+    }
+  );
+
+}
+
+
+function PutPossuiLogin(aEmail, possuiLogin)
+{
+  var Usuarios = Parse.Object.extend('Usuarios');
+  var query = new Parse.Query(Usuarios);
+  query.equalTo("Email", aEmail);
+  query.find().then((results) => {
+      var objectID = results[0].id;
+      var query = new Parse.Query(Usuarios);
+      query.get(objectID).then((object) => {
+           object.set("PossuiLogin",possuiLogin);
+           object.save().then((response) => {
+                 console.log(response); 
+            });        
+      });
+
+  }, (error) => {
+      
+  });
+}
+
+function CadastraNovoAdmin(aemail,ausername)
+{
+  //fecha o modal de login;
+  $('#ModalLogin').modal('hide')
+  $('#ModalUserName').text(ausername);
+  $('#ModalEmail').text(aemail);
+
+  $('#ModalCriarUsuario').modal({
+    keyboard : false,
+    focus : true,
+    backdrop : false
+   
+   })
+}
+
+
+   

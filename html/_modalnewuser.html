@@ -1,0 +1,36 @@
+         <!--  modal -->
+                <!-- MODAL CADASTRO DE USUARIO-->
+                <div class="modal fade" id="exampleModal-4" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="titulo-title">Novo Usuário</h5>
+                        </div>
+                        <div class="modal-body">
+                          <form class="cmxform" id="form-cadastrar" method="GET"  action=""  >
+                            <fieldset>
+                    
+                            <div class="form-group" >
+                              <label for="txtNome" class="col-form-label">Nome:</label>
+                              <input type="text" class="form-control" id="txtNome" name="xnome" onchange="txtNome_change()"  minlength="5" required>
+                            </div>
+    
+                              <div class="form-group" >
+                              <label for="txtEmail" class="col-form-label">E-mail:</label>
+                              <input type="email" class="form-control" id="txtEmail" name="xemail"  pattern=".+@meganews.com.br" required> 
+                            </div>
+                            <input type="checkbox" name="Ativo" value="Ativo" id="chkAtivo"  checked>Ativo</input><br>
+                            <input type="checkbox" name="Desenvolvedor" id="chkDesenvolvedor"  >Desenvolvedor</input><br>
+                            <input type="checkbox" name="Administrador" id="chkAdmin">Admin</input>
+                          
+                          <div class="modal-footer">
+                            <button type="submit" id="btn-cadastrar" class="btn btn-success" >Ok</button>
+                            <button type="button" id="btn-cancelar" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                          </div>
+                            </fieldset>
+                          </form>
+                        </div>
+                        
+                      </div>
+                    </div>
+                    </div>
