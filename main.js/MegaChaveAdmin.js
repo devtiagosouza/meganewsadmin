@@ -8,6 +8,7 @@
 const cApplicationID = "0lMShoD8rKkzIpQknQxTRGElezYMQ1qXiu5aJnRZ";
 const cRestAPIkey = "z5oT880eMQe9mw6PAgPUXJbXav14zSF3t7P1DOYK";
 const cJavaScriptAPIKey  = "czVvVaGgG8GnEqJK3PhDHRa4b7CJp1GG66Xp056p";
+const cMasterKey = "5jBIHZaUkGhmRZdtf5U4FsnbsBa0dC9kLTNA9Arh";
 const cServerUrl = "https://megachaveapp.back4app.io";
 var sessionToken = "";
 
@@ -20,9 +21,8 @@ const RestApiHeaders = function(xhr) {
                         xhr.setRequestHeader('X-Parse-REST-API-Key',cRestAPIkey);
 };
 
-
-Parse.initialize(cApplicationID, cJavaScriptAPIKey); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
 Parse.serverURL = cServerUrl;
+Parse.initialize(cApplicationID, cJavaScriptAPIKey,cMasterKey); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
 const cUsuariosUrl = `${cServerUrl}/classes/Usuarios`;
 const CFuncionName = 'userExists';
 
@@ -50,11 +50,18 @@ function userExists(aEmail) {
  
  EmptyTable();
 
- 
+ function handleParseError(err) {
+  switch (err.code) {
+    case Parse.Error.INVALID_SESSION_TOKEN:
+      Parse.User.logOut();
+  }
+ }
 
 
 
- (function($) {
+  //Ao exibir o modal login, esconder todos os elementos da página
+ (
+   function($) {
   'use strict';
   $('#ModalLogin').on('show.bs.modal', function(event) {
     $('.container-scroller').hide();
@@ -62,27 +69,33 @@ function userExists(aEmail) {
  
 })(jQuery);
  
-
-AuthVerifier();
-function VerificaSeExisteUSER(aEmail)
-{
-      
-
-   
-}
-
-function AuthVerifier()
-{
-  if (sessionToken == "") 
+if (sessionToken == "") 
   {
     $('#ModalLogin').modal({
         keyboard : false,
         focus : true,
         backdrop : false
     });
-  }
- 
 }
+
+
+function CadastraNovoAdmin(aemail,ausername)
+{
+  //fecha o modal de login;
+  $('#ModalLogin').modal('hide')
+  $('#ModalUserName').text(ausername);
+  $('#ModalEmail').text(aemail);
+
+  $('#ModalCriarUsuario').modal({
+    keyboard : false,
+    focus : true,
+    backdrop : false
+   
+   })
+}
+
+ 
+
 
 
 
@@ -113,6 +126,9 @@ function AuthVerifier()
 
 
 
+
+
+
 function txtNome_change()
 {
   var texto = "";
@@ -128,7 +144,73 @@ function txtNome_change()
 
 
 
+(function($) {
 
+  $("#form-criarsenha").validate({
+      debug: true,
+      submitHandler: function(form) {
+            //criar o usuário   
+            const user = new Parse.User()
+             
+            var xUserName = $("#ModalUserName").text().toString();
+            var xEmail = $("#ModalEmail").text().toString();
+            var xPass = $("#txtLoginNovaSenha").val().toString();
+
+            user.set('username', xUserName);
+            user.set('email', xEmail);
+            user.set('password',xPass);
+
+            user.signUp().then((user) => {
+                //depois de cadastrar, fechar o modal 
+                $('#ModalCriarUsuario').modal('hide');
+               
+                console.log('User signed up', user);
+                $('#ModalLogin').modal({
+                  keyboard : false,
+                  focus : true,
+                  backdrop : false
+                });
+
+                 UpdateUser()
+
+                swal('Admin Cadastrado','Novo Usuário Administrador cadastrado com sucesso!\n','success');
+            }).catch(error => {
+               swal('Erro!','Erro ao cadastrar usuário \n'+error,'error');
+               console.error('Erro ao cadastrar usuário', error);
+            });
+      },
+      rules :
+      {
+           xLoginNovaSenha : 
+           {
+              minlength : 6,
+              required : true
+           },
+           xLoginConfirmaSenha :
+           {
+               equalTo: "#txtLoginNovaSenha"
+           }
+      },
+      messages:
+      {
+            xLoginNovaSenha : {
+                    required : 'Defina uma senha de acesso',
+                    minlength : jQuery.validator.format("a senha deve ter pelo menos {0} caracteres!")
+            },
+            xLoginConfirmaSenha : {
+                    equalTo : "A confirmação de senha deve ser igual a senha definida no campo acima"
+            }
+      },
+      errorPlacement: function(label, element) {
+        label.addClass('mt-2 text-danger');
+        label.insertAfter(element);
+      },
+      highlight: function(element, errorClass) {
+              $(element).parent().addClass('has-danger')
+              $(element).addClass('form-control-danger')
+      }
+  })
+})(jQuery);
 
 
 /* Metodo anõnimo para atribuição de validação do formulario de cadastro de usuários */
@@ -208,7 +290,49 @@ function txtNome_change()
 
 })(jQuery);
 
+function TemLoginCriado(objeto)
+{
+  try
+  {
+     var possui = obj.PossuiLogin;
+     return possui;
+  }
+  catch(e)
+  {
+      return false;
+  }
+}
 
+function VerificaSeEhAdmin(aEmail)
+{
+  const Usuarios = Parse.Object.extend('Usuarios');
+  const query = new Parse.Query(Usuarios);
+  query.equalTo("Email", aEmail);
+  query.find()
+  .then(
+    (results) => 
+    {
+       var obj = results[0].attributes;
+       var nomeUsuario = obj.Usuario;
+       
+        if (TemLoginCriado(obj))
+        {
+          swal('login','Login ou senha inválidos','error');
+         
+        }
+        else
+        {
+          CadastraNovoAdmin(aEmail,nomeUsuario);
+        }
+
+    },
+    (error) => {
+       swal('inválido','Usuário inválido '+error,'error');
+       handleParseError(error);
+    }
+  );
+
+}
 
 (function($) {
       
@@ -217,55 +341,21 @@ function txtNome_change()
 
       submitHandler: function(form) {
         //verificar se existe o email já está cadastrado
-                email = $('#txtLoginUsuario').val().toString(); 
-                senha = $('#txtLoginSenha').val().toString();
-              
+                var email = $('#txtLoginUsuario').val().toString(); 
+                var senha = $('#txtLoginSenha').val().toString();
 
-
-
-              
-                Parse.User.logIn(email,senha).then((user) => {
+                Parse.User.logIn(email,senha).then(
+                  (user) => {
                   // Do stuff after successful login
                     // console.log(user);
-                }).catch(error => {
-                     //invalido usuario 
-                   
-                        const Usuarios = Parse.Object.extend('Usuarios');
-                        const query = new Parse.Query(Usuarios);
-                        query.equalTo("Email", email);
-                        query.find()
-                        .then
-                        (
-                          (results) => {
-                          // You can use the "get" method to get the value of an attribute
-                          // Ex: response.get("<ATTRIBUTE_NAME>")
-                            var obj = results[0].attributes;
-                            if (obj.Admin == true)
-                            {
-                                  
-
-                                 if (obj.PossuiLogin == undefined)
-                                 {
-                                    swal('criar senha','você precisa criar sua senha','warning');
-                                 }
-                                 else
-                                 {
-                                    swal('login','Login ou senha inválidos','error');
-                                 }
-                            }
-                            else 
-                            {
-                              swal('não autorizado','Usuário não autorizado','error');
-                            }
-
-                        }, 
-                         (error) => {
-                             swal('inválido','Usuário inválido','error');
-                                 }
-                        );
-
-                     //verifica se existe o usuario 
-                })
+                            $('.container-scroller').show();
+                           }
+                ).catch(
+                    (error) => {
+                        VerificaSeEhAdmin(email);
+                    }
+                    //verifica se existe o usuario 
+                );
 
 
                 //fluxo=
@@ -401,6 +491,18 @@ function EmptyTable()
 { 
    document.querySelectorAll('.trHeadClass > th').forEach(el => el.remove());
    document.querySelectorAll('.trElement').forEach(el => el.remove());
+}
+
+function PutPossuiLogin(aEmail, possuiLogin)
+{
+  const Usuarios = Parse.Object.extend('Usuarios');
+  const query = new Parse.Query(Usuarios);
+  query.equalTo("Email", aEmail);
+  query.find().then((results) => {
+    
+  }, (error) => {
+       
+  });
 }
 
 function UpdateUser(UserID, Nome, UserObject)
