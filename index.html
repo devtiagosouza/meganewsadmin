@@ -43,14 +43,19 @@
 
        #logo
        {
-         width: 100%;
+         width: 80%;
+       }
+       #LogoMini
+       {
+         width: 60%;
        }
 
-       .nav-item > button
-        {
-          width: 100%;
-          background-color: white;
-          border: none;
+      
+
+        .sidebar .nav .nav-item.nav-profile .nav-link {
+          font-family: "Montserrat-semibold", sans-serif;
+          height: auto;
+          padding: 14px 14px 17px 1px;
         }
 
     </style>
@@ -65,55 +70,117 @@
     <script src="vendors/jquery-validation/jquery.validate.min.js"></script>
     <div class="container-scroller">  
             <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row navbar-success">
-                <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                    <img id="logo" src="http://meganews.com.br/wp-content/themes/meganews/img/logo-topo.png" href="http://www.meganews.com.br" alt="logo mega news" srcset="">
-                </div>
+                 <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                    <a class="navbar-brand brand-logo"><img src="images/logo-inteiro.png" id="logo" alt="logo"/></a>
+                    <a class="navbar-brand brand-logo-mini"><img src="images/logo-mini.png" id="LogoMini" alt="logo"/></a>
+                  </div>
                 <div class="navbar-menu-wrapper d-flex align-items-stretch">
                     <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
                       <span class="mdi mdi-menu"></span>
                     </button>
-                    <h3>Mega Chave Admin</h3> 
-                
-                 
+                    <ul class="navbar-nav">
+                      <li class="nav-item d-none d-lg-block">
+                        <a class="nav-link">
+                          <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                          <div class="nav-link form-inline mt-2 mt-md-0 d-none d-lg-flex search">
+                            <span>Gerenciamento de Usuários do Aplicativo MegaChave App</span> 
+                          </div>
+                       </li>
+                     <!-- <li class="nav-item">
+                        <form class="nav-link form-inline mt-2 mt-md-0 d-none d-lg-flex search">
+                          <input type="text" class="form-control" placeholder="Gerenciamento de Usuários do Aplicativo MegaChave APP">
+                        </form>
+                      </li>-->
+                    </ul>
+                    <ul class="navbar-nav navbar-nav-right">
+                   
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle nav-profile" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                          <img src="images/ic_user.svg" alt="image">
+                          <span id="spanNomeUsuario1" class="d-none d-lg-inline">Daniel Russiel</span>
+                        </a>
+                        <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
+                          <a class="dropdown-item" href="#">
+                           <i class="mdi mdi-cached mr-2 text-success"></i>
+                             Perfil
+                          </a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#" onclick="Logoff()">
+                            <i class="mdi mdi-logout mr-2 text-primary"></i>
+                            Logoff
+                          </a>
+                        </div>
+                      </li>
+                      <li class="nav-item nav-settings d-none d-lg-block">
+                        <a class="nav-link" href="#" onclick="Logoff()">
+                          <i class="mdi mdi-backburger"></i>
+                        </a>
+                      </li>
+                    </ul>
+                    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                    <span class="mdi mdi-menu"></span>
+                  </button>
                   </div>
             </nav>
           
 
            <div class="container-fluid page-body-wrapper">
                 <nav class="sidebar sidebar-offcanvas" id="sidebar">
-                  <ul class="nav">
-                      <li class="nav-item nav-profile">
-                          <div class="nav-link d-flex">
-                            <div class="profile-image">
-                              <img src="https://placehold.it/100x100" alt="imagem">  -
-                              <span class="online-status online"></span> 
-                            </div> 
-                            <div class="profile-name">
-                              <p class="name">
-                                Usuário
-                              </p>
-                              <p class="designation">
-                                Perfil
-                              </p>
-                             <input  type="button" id="btn-logoff" onclick="Logoff()"class="btn btn-primary" value="logoff">
-                            </div>
-
+                    
+                   <ul class="nav">
+                    
+                       <li class="nav-item nav-profile dropdown">
+                          <a class="nav-link dropdown-toggle nav-profile" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                              <div class="profile-image">
+                                  <img src="images/ic_user.svg" alt="image"/>
+                                  <span class="online-status online"></span> <!--change class online to offline or busy as needed-->
+                               </div>
+                               <div class="profile-name">
+                                  <p class="name">
+                                    nome
+                                  </p>
+                                  <p class="designation">
+                                    email
+                                  </p>
+                                </div>  
+                          </a>
+                          <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
+                              <a class="dropdown-item" href="#">
+                                  <i class="mdi mdi-cached mr-2 text-success"></i>
+                                    Perfil
+                                 </a>
+                                 <div class="dropdown-divider"></div>
+                                 <a class="dropdown-item" href="#" onclick="Logoff()">
+                                   <i class="mdi mdi-logout mr-2 text-primary"></i>
+                                   Logoff
+                                 </a>
                           </div>
-                      </li>
-                      <li class="nav-item nav-category">
-                          <span class="nav-link">Menu</span>
+                       </li>
+
+                       <li class="nav-item nav-category">
+                          <span class="nav-link">MENU</span>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="true" aria-controls="page-layouts">
-                              <i class="icon-box menu-icon"></i>
+                              <i class="icon-lock menu-icon"></i>
                               <span class="menu-title">Usuários</span>
                               <i class="menu-arrow"></i>
                             </a>
-                            <div class="collapse show" id="page-layouts" style="">
+                            <div class="collapse show" id="page-layouts">
                               <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"><button id="btnListar" type="button" class="btn btn-secondary btn-sm"  value="Listar" onclick="ListarUsers()"><i class="mdi mdi-loop"></i>atualizar</button></li>
-                                <li class="nav-item"><button id="btnCadastrar"  data-toggle="modal" type="button" data-target="#exampleModal-4" class="btn btn-secondary btn-sm"  value="Cadastrar"><i class="fa fa-address-card"></i>cadastrar</button>
+                                <!--<li class="nav-item"><button id="btnListar" type="button" class="btn btn-secondary btn-sm"  value="Listar" onclick="ListarUsers()"><i class="mdi mdi-loop"></i>atualizar</button></li> -->
+                                <li class="nav-item">
+                                  <a class="nav-link" href="#" onclick="ListarUsers()"><i class="mdi mdi-loop"></i>Listar Usuários</a>
                                 </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal-4" ><i class="fa fa-address-card"></i>+Novo Usuário</a>
+                                </li>
+
+                                <!--<li class="nav-item"><button id="btnCadastrar"  data-toggle="modal" type="button" data-target="#exampleModal-4" class="btn btn-secondary btn-sm"  value="Cadastrar"><i class="fa fa-address-card"></i>cadastrar</button>
+                                </li>-->
                               </ul>
                             </div>
                           </li>                
@@ -121,24 +188,35 @@
                 </nav>
 
                 <div class="main-panel" id="divBotoesPrincipais">
-                        <div>                               
-                                <table id = "tbUsers">
-                                  <thead>
-                                        <tr id="trHead" class = "trHeadClass">
-                                                                    
-                                        </tr> 
-                                    </thead>
-                                    <tbody>
-                                            
-                                    </tbody>
-                                </table>
+                    <div class="content-wrapper">
+                       <div class="row">
+                          <div class="card" style="position: relative; width: 100%;">
+                             <div class="card-body">
+                                <p class="card-title">Lista de usuários do aplicativo:</p>
+                                   <table id = "tbUsers">
+                                    <thead>
+                                          <tr id="trHead" class = "trHeadClass">
+                                                                      
+                                          </tr> 
+                                      </thead>
+                                      <tbody>
+                                              
+                                      </tbody>
+                                  </table>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                  
+                                                  
+                               
                               
-                        </div>    
+                           
                         <footer class="footer">
                             <div class="container-fluid clearfix">
-                              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2019 <a href="http://www.meganews.com.br/" target="_blank">Mega News</a>. All rights reserved.</span>
+                              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2019 <a href="http://www.meganews.com.br/" target="_blank">Mega News</a>. Todos os direitos reservados.</span>
                             </div>
-                        </footer>   
+                        </footer>       
                 </div>
 
           </div>

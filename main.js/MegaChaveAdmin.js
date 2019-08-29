@@ -195,7 +195,10 @@ function CloseBody()
 
 function AdicionaHeaders()
 {
+ 
    document.querySelectorAll('.trHeadClass > th').forEach(el => el.remove());
+   
+
 
    var theadElement = document.getElementById("trHead");
    

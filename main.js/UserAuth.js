@@ -76,9 +76,13 @@ function doLoginOK()
   {
       CloseLogin();
       $('.container-scroller').show();
-    
-     $('.name').text(Parse.User.current().getEmail());
-     $('.designation').text(Parse.User.current().getUsername());
+
+        
+     $('#spanNomeUsuario1').text(Parse.User.current().getUsername());
+     $('#spanNomeUsuario2').text(Parse.User.current().getUsername()); 
+
+     $('.name').text(Parse.User.current().getUsername());
+     $('.designation').text(Parse.User.current().getEmail());
      //sessionToken = LoggedUser.attributes.sessionToken;
   }
   catch(e)
@@ -169,8 +173,7 @@ function verificalogin()
     var currentUser = Parse.User.current();
     if (currentUser) {
         ShowBody();
-        $('.name').text(currentUser.getEmail());
-        $('.designation').text(currentUser.getUsername());
+        doLoginOK();
     } else {
         ShowLogin();
     }
