@@ -1,4 +1,6 @@
 
+
+
 //verifica se deu erro de invalid sessino token, neste caso deve fazer login novamente
 function handleParseError(err) {
     switch (err.code) {
@@ -7,26 +9,6 @@ function handleParseError(err) {
     }
 }
 
-function onLogin(form)
-{
-      var email = $('#txtLoginUsuario').val().toString(); 
-      var senha = $('#txtLoginSenha').val().toString();
-
-      Parse.User.logIn(email,senha).then(
-        (user) => {
-        // Do stuff after successful login
-         // console.log(user);
-               
-                  doLoginOK();
-                }
-      ).catch(
-          (error) => {
-            console.log(error);
-            VerificaSeEhAdmin(email);
-          }
-          //verifica se existe o usuario 
-      );    
-}
 
 
 
@@ -45,17 +27,20 @@ function onCriarUsuario(form)
       user.set('password',xPass);
 
       user.signUp().then((user) => {
+          
+          PutPossuiLogin(xEmail, true);
+         
           //depois de cadastrar, fechar o modal 
           $('#ModalCriarUsuario').modal('hide');
          
-          console.log('User signed up', user);
+          CloseLoading();
           ShowLogin();
 
           
           swal('Admin Cadastrado','Novo Usuário Administrador cadastrado com sucesso!\n','success');
       }).catch(error => {
+         CloseLoading();
          swal('Erro!','Erro ao cadastrar usuário \n'+error,'error');
-         console.error('Erro ao cadastrar usuário', error);
       });
 }
 
@@ -65,7 +50,7 @@ function TemLoginCriado(objeto)
 {
   try
   {
-     var possui = obj.PossuiLogin;
+     var possui = objeto.PossuiLogin;
      return possui;
   }
   catch(e)
@@ -82,12 +67,24 @@ function ShowLogin()
         backdrop : false
     });
 }
+
+
+
 function doLoginOK()
 {
-  CloseLogin();
-  $('.container-scroller').show();
+  try
+  {
+      CloseLogin();
+      $('.container-scroller').show();
+    
+     $('.name').text(Parse.User.current().getEmail());
+     $('.designation').text(Parse.User.current().getUsername());
+     //sessionToken = LoggedUser.attributes.sessionToken;
+  }
+  catch(e)
+  {
 
-  
+  }
 }
 function CloseLogin()
 {
@@ -108,6 +105,7 @@ function VerificaSeEhAdmin(aEmail)
        
         if (TemLoginCriado(obj))
         {
+          CloseLoading();
           swal('login','Login ou senha inválidos','error');
          
         }
@@ -118,6 +116,7 @@ function VerificaSeEhAdmin(aEmail)
 
     },
     (error) => {
+       CloseLoading();
        swal('inválido','Usuário inválido '+error,'error');
        handleParseError(error);
     }
@@ -137,7 +136,7 @@ function PutPossuiLogin(aEmail, possuiLogin)
       query.get(objectID).then((object) => {
            object.set("PossuiLogin",possuiLogin);
            object.save().then((response) => {
-                 console.log(response); 
+              
             });        
       });
 
@@ -153,6 +152,8 @@ function CadastraNovoAdmin(aemail,ausername)
   $('#ModalUserName').text(ausername);
   $('#ModalEmail').text(aemail);
 
+  CloseLoading();
+
   $('#ModalCriarUsuario').modal({
     keyboard : false,
     focus : true,
@@ -162,4 +163,58 @@ function CadastraNovoAdmin(aemail,ausername)
 }
 
 
+function verificalogin()
+{  
+ 
+    var currentUser = Parse.User.current();
+    if (currentUser) {
+        ShowBody();
+        $('.name').text(currentUser.getEmail());
+        $('.designation').text(currentUser.getUsername());
+    } else {
+        ShowLogin();
+    }
+}
+
+function Logoff()
+{
+
+   swal({
+    title: 'Logoff',
+    text: 'Confirma Logoff?',
+    icon: 'warning',
+    buttons: {
+      cancel: {
+        text: "Não",
+        value: null,
+        visible: true,
+        className: "btn btn-danger",
+        closeModal: true,
+      },
+      confirm: {
+        text: "Sim",
+        value: true,
+        visible: true,
+        className: "btn btn-primary",
+      }
+    }
+  }
+  )
+  .then(
+    (isConfirm) => {
+      if (isConfirm)
+      {
+         Parse.User.logOut();
+         ShowLogin();
+      }
+    }
+
+  );
+ 
+ 
+
+
+}
    
+
+

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Mega Chave Admin</title>
-
+    
 
     <!--PARSE SDK -->
     <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
@@ -60,8 +60,10 @@
 </head>
 
 <body >
+ 
+
     <script src="vendors/jquery-validation/jquery.validate.min.js"></script>
-    <div class="container-scroller">
+    <div class="container-scroller">  
             <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row navbar-success">
                 <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
                     <img id="logo" src="http://meganews.com.br/wp-content/themes/meganews/img/logo-topo.png" href="http://www.meganews.com.br" alt="logo mega news" srcset="">
@@ -83,9 +85,9 @@
                       <li class="nav-item nav-profile">
                           <div class="nav-link d-flex">
                             <div class="profile-image">
-                              <img src="https://placehold.it/100x100" alt="imagem">
-                              <span class="online-status online"></span> <!--change class online to offline or busy as needed-->
-                            </div>
+                              <img src="https://placehold.it/100x100" alt="imagem">  -
+                              <span class="online-status online"></span> 
+                            </div> 
                             <div class="profile-name">
                               <p class="name">
                                 Usuário
@@ -93,7 +95,9 @@
                               <p class="designation">
                                 Perfil
                               </p>
+                             <input  type="button" id="btn-logoff" onclick="Logoff()"class="btn btn-primary" value="logoff">
                             </div>
+
                           </div>
                       </li>
                       <li class="nav-item nav-category">
@@ -255,8 +259,6 @@
   <script src="js/alerts.js"></script>
   <script src="js/avgrund.js"></script>
   <script src="js/dashboard.js"></script>
-
-
 
   <script src = "main.js/MegaChaveAdmin.js"></script>
 </body>

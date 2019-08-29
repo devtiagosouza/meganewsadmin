@@ -3,8 +3,6 @@
   configuraModalNovoUsuario();
   configuraModalNovoAcesso();
   //Ao exibir o modal login, esconder todos os elementos da página
- 
-
 function  configuraModalNovoUsuario()
 {
    (function($) {
@@ -27,7 +25,9 @@ function configuraModalLogin()
     function($) {
    'use strict';
    $('#ModalLogin').on('show.bs.modal', function(event) {
-     $('.container-scroller').hide();
+       $('.container-scroller').hide();
+       $('#txtLoginUsuario').val("");
+       $('#txtLoginSenha').val("");
    })
   
    })(jQuery);
@@ -47,6 +47,29 @@ function configuraModalLogin()
 })(jQuery);
 
 }
+
+function onLogin(form)
+{
+      var email = $('#txtLoginUsuario').val().toString(); 
+      var senha = $('#txtLoginSenha').val().toString();
+
+      ShowLoading();
+      Parse.User.logIn(email,senha).then(
+        (user) => {
+        // Do stuff after successful login
+         // console.log(user);
+            
+             CloseLoading();
+             doLoginOK();
+         }
+      ).catch(
+          (error) => {
+            VerificaSeEhAdmin(email);
+          }
+          //verifica se existe o usuario 
+      );    
+}
+
 
 function configuraModalNovoAcesso()
 {
@@ -71,6 +94,4 @@ function configuraModalNovoAcesso()
 }
 
 Parse.initialize(cApplicationID, cJavaScriptAPIKey,cMasterKey); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
- 
-
-ShowLogin();
+verificalogin();

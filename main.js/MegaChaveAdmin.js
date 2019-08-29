@@ -1,5 +1,4 @@
-﻿
-/*INJECT SCRIPTS*/
+﻿/*INJECT SCRIPTS*/
 [
      'Settings.js',
      'Config.js',
@@ -10,11 +9,17 @@
 forEach(script => {
   var imported = document.createElement('script');
   imported.src = `main.js/${script}`;
-  document.head.appendChild(imported); 
+  imported.defer = true;
+  document.body.appendChild(imported); 
+ 
 });
 
-EmptyTable();
 
+
+
+
+
+EmptyTable();
 
 
 
@@ -176,6 +181,16 @@ function AdicionaItemGrid (obj)
                   }
                   document.querySelector('tbody').appendChild(trElement);
           
+}
+
+
+function ShowBody()
+{
+  $('.container-scroller').show();
+}
+function CloseBody()
+{
+  $('.container-scroller').hide();
 }
 
 function AdicionaHeaders()
