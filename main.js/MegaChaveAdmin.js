@@ -3,7 +3,6 @@
      'Settings.js',
      'Config.js',
      'CadastroAcesso.js',
-     'UserAuth.js',
      'Runtime.js'
 ].
 forEach(script => {
@@ -15,13 +14,7 @@ forEach(script => {
 });
 
 
-
-
-
-
 EmptyTable();
-
-
 
 
 function CloseLoading()
@@ -62,6 +55,8 @@ function AdicionaItemGrid (obj)
 {           
             function add(trElement,Texto, nomeClasse, idElement = "")
             {
+
+
               var tdElement = document.createElement('td');
               tdElement.innerText = Texto;
               if (idElement != "")
@@ -74,7 +69,7 @@ function AdicionaItemGrid (obj)
                 tdButton = document.createElement('button');
                 if (Texto == 'Ativo')
                 {
-                  tdButton.className="btn btn-outline-danger btn-sm"
+                  tdButton.className="btn btn-outline-danger btn-xs"
                   tdButton.innerText = 'desativar';
                   tdButton.addEventListener('click', InativarUser);
                   tdButton.value = 'desativar';
@@ -92,17 +87,25 @@ function AdicionaItemGrid (obj)
               {
                  addResetButton(tdElement);
               }
+              else if (nomeClasse == "idUsuarioClass")
+              {
+             
+                tdElement.style.display = "none";
+              }
 
               trElement.appendChild(tdElement);
             }
 
             function addDeleteButton(trElement)
             {
+    
+               
               var btnDelete = document.createElement('input');
               btnDelete.type = "button";
               btnDelete.value = "Excluir";
-              btnDelete.className = 'btn btn-danger btn-sm';
+              btnDelete.className = 'btn btn-danger btn-xs';
 
+                            
               btnDelete.addEventListener('click', ExcluirUser);
               trElement.appendChild(btnDelete);
             }
@@ -112,7 +115,7 @@ function AdicionaItemGrid (obj)
               var btnResetar = document.createElement('input');
               btnResetar.type = "button";
               btnResetar.value = "Resetar";
-              btnResetar.className = 'btn btn-warning btn-sm';
+              btnResetar.className = 'btn btn-warning btn-xs';
 
               btnResetar.addEventListener('click', ResetarUser);
               trElement.appendChild(btnResetar);
@@ -203,7 +206,6 @@ function AdicionaHeaders()
    var theadElement = document.getElementById("trHead");
    
    var colunas = [
-     'id',
      'usuário',
      'e-mail de acesso',
      'cadastro',
@@ -225,14 +227,37 @@ function AdicionaHeaders()
    
 }
 
-function ListarUsers()
+function ListarUsers(filter = "")
 {
+   var cardbody = document.getElementById("CorpoCard");
+   if (cardbody.style.display == "none") 
+   {
+     cardbody.style.display = "block";
+   }
+
     const Usuarios = Parse.Object.extend('Usuarios');
-    const query = new Parse.Query(Usuarios);
-    query.ascending("Email");
+    var composedQuery = new Parse.Query(Usuarios);
+    if (filter != "")
+    {
+       var filterEmail = filter.toLowerCase();
+       var filterPrimeriaMaiuscula = filter.charAt(0).toUpperCase() + filter.slice(1);
+        
+
+       var QueryEmail = new Parse.Query(Usuarios);
+       QueryEmail.startsWith('Email',filterEmail);
+
+
+       var QueryNome = new Parse.Query(Usuarios);
+       QueryNome.startsWith('Usuario',filterPrimeriaMaiuscula);
+
+  
+       composedQuery = Parse.Query.or(QueryEmail,QueryNome)
+    }
+
+    composedQuery.ascending("Email");
     ShowLoading();
     EmptyTable();
-    query.find()
+    composedQuery.find()
     .then(
       (users) => {
         EmptyTable();
@@ -251,6 +276,29 @@ function ListarUsers()
     );
 }
 
+function  txtNome_change()
+{
+    textoDigitado = $('#txtNome').val();
+
+    emailCalculado = textoDigitado.replace(/\s/g, '.')+"@meganews.com.br";
+    emailCalculado = emailCalculado.toLowerCase();
+
+
+    $('#txtEmail').val(emailCalculado);
+
+}
+
+function runSearch(event)
+{
+  if (event.which == 13 || event.keyCode == 13) {
+     var digitado =  $('#txtPesquisa').val(); 
+    
+     ListarUsers(digitado);
+
+    return false;
+  }
+   return true;
+}
 
 
 

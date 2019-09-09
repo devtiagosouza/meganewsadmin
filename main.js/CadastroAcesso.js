@@ -78,9 +78,6 @@
 })(jQuery);
 
 
-
-
-
 function CadastrarUser()
 {
     var nomeUsuario = document.querySelector('#txtNome').value;
@@ -178,10 +175,7 @@ function userExists(aEmail) {
 
 function UpdateUser(UserID, Nome, UserObject)
 {
-     Confirma('Confirmação',"Confirma Atualização de dados?\n\n"+UserID+' '+Nome+'\n'+
-    ' '+JSON.stringify(UserObject).replace(/,/g, "\n")
-     
-     )
+     Confirma('Confirmação',"Confirma Atualização de dados?\n\n"+Nome)
      .then((isConfirm) => {
       if (isConfirm == true)
       {
@@ -206,9 +200,7 @@ function UpdateUser(UserID, Nome, UserObject)
             CloseLoading();
             swal({
               title: 'Sucesso!',
-              text: 'Parâmetros de usuário alterados com sucesso\n\n'+
-              JSON.stringify(UserObject).replace(/,/g, "\n")
-              ,
+              text: 'Parâmetros de usuário alterados com sucesso',
               icon: 'success',
               button: {
                 text: "Ok",
@@ -234,7 +226,7 @@ function ExcluirUser()
    var Nome = this.closest('tr').querySelector('.usuarioClass').innerText; 
 
 
-   Confirma('Confirmação',"Confirma Exclusão de Usuário?\n\n"+ID+' '+Nome  
+   Confirma('Confirmação',"Confirma Exclusão de Usuário?\n\n"+Nome  
     )
     .then((isConfirm) => {
       if (isConfirm == true)

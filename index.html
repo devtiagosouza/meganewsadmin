@@ -4,13 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Mega Chave Admin</title>
+    <title>Mega News Admin</title>
     
 
     <!--PARSE SDK -->
     <script type="text/javascript" src="js/parse.min.js"></script>
    
-   
+    <link rel="stylesheet" href="css/fontawesome/all.css">
+    <link rel="stylesheet" href="css/fontawesome/fontawesome.css">
+    <link rel="stylesheet" href="css/fontawesome/brands.css">
+    <link rel="stylesheet" href="css/fontawesome/regular.css">
+    <link rel="stylesheet" href="css/fontawesome/solid.css">
+
+
     <script src="vendors/js/vendor.bundle.base.js"></script>
     <script src="js/jquery.loadingModal.js"></script>
     <script src="vendors/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
@@ -18,64 +24,33 @@
     <link rel="stylesheet" href="vendors/puse-icons-feather/feather.css">
     <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" href="css/style.css">   
-    <style>
-      
-      table {
-          border-collapse: collapse;
-          font-size: 12px;
-        }
+    <link rel="stylesheet"  href="main.css/inputSearch.css">
 
-        table, td, th {
-          border: 1px solid #f5f5f5;
-        }
-        tbody > tr:hover {background-color: #f5f5f5;}
+    <link rel="stylesheet"  href="css/bootstrap-table.min.css">
+
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-table-pt-BR.min.js"></script>
+
     
-        thead > tr{
-             background-color: #f5f5f5;
-             color: gray;
-             border: 1px solid #353535;
-            
-        }
-        .infoRegistroClass {
-        
-          padding-right: 15px;
-        }
-
-       #logo
-       {
-         width: 80%;
-       }
-       #LogoMini
-       {
-         width: 60%;
-       }
-
-      
-
-        .sidebar .nav .nav-item.nav-profile .nav-link {
-          font-family: "Montserrat-semibold", sans-serif;
-          height: auto;
-          padding: 14px 14px 17px 1px;
-        }
-
-    </style>
     <link rel="stylesheet" href="css/jquery.loadingModal.css">
     <script src="vendors/sweetalert/sweetalert.min.js"></script>
     <script src="vendors/jquery.avgrund/jquery.avgrund.min.js"></script>
+    <link rel="stylesheet" href="main.css/index.css" >
 </head>
 
-<body >
- 
-
-    <script src="vendors/jquery-validation/jquery.validate.min.js"></script>
+<body class="sidebar-icon-only">
+     <script src="vendors/jquery-validation/jquery.validate.min.js"></script>
+    
     <div class="container-scroller">  
-            <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row navbar-success">
-                 <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                    <a class="navbar-brand brand-logo"><img src="images/logo-inteiro.png" id="logo" alt="logo"/></a>
-                    <a class="navbar-brand brand-logo-mini"><img src="images/logo-mini.png" id="LogoMini" alt="logo"/></a>
+            <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row navbar-primary">
+                 
+                  <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                   <!-- <a class="navbar-brand brand-logo"><img src="images/logo-inteiro.png" id="logo" alt="logo"/></a>
+                    <a class="navbar-brand brand-logo-mini"><img src="images/logo-mini.png" id="LogoMini" alt="logo"/></a>-->
                   </div>
+                   
                 <div class="navbar-menu-wrapper d-flex align-items-stretch">
-                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <button id="btnMenu" class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
                       <span class="mdi mdi-menu"></span>
                     </button>
                     <ul class="navbar-nav">
@@ -86,21 +61,22 @@
                       </li>
                       <li class="nav-item">
                           <div class="nav-link form-inline mt-2 mt-md-0 d-none d-lg-flex search">
-                            <span>Gerenciamento de Usuários do Aplicativo MegaChave App</span> 
+                            <span><h3> Mega News Admin</h3></span> 
                           </div>
                        </li>
-                     <!-- <li class="nav-item">
+                      <!-- <li class="nav-item">
                         <form class="nav-link form-inline mt-2 mt-md-0 d-none d-lg-flex search">
                           <input type="text" class="form-control" placeholder="Gerenciamento de Usuários do Aplicativo MegaChave APP">
                         </form>
                       </li>-->
                     </ul>
                     <ul class="navbar-nav navbar-nav-right">
+                     
                    
-                      <li class="nav-item dropdown">
+                      <li id="comboUsuario" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle nav-profile" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                           <img src="images/ic_user.svg" alt="image">
-                          <span id="spanNomeUsuario1" class="d-none d-lg-inline">Daniel Russiel</span>
+                          <span id="spanNomeUsuario1" class="d-none d-lg-inline"></span>
                         </a>
                         <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
                           <a class="dropdown-item" href="#">
@@ -115,8 +91,11 @@
                         </div>
                       </li>
                       <li class="nav-item nav-settings d-none d-lg-block">
-                        <a class="nav-link" href="#" onclick="Logoff()">
+                        <a id="logoffLateral" class="nav-link" href="#" onclick="Logoff()">
                           <i class="mdi mdi-backburger"></i>
+                        </a>
+                        <a id="fazerLogin" class="nav-link" href="#" onclick="ShowLogin()">
+                            <i class="mdi mdi-account">Fazer Login</i>
                         </a>
                       </li>
                     </ul>
@@ -127,8 +106,9 @@
             </nav>
           
 
-           <div class="container-fluid page-body-wrapper">
-                <nav class="sidebar sidebar-offcanvas" id="sidebar">
+           <div id="divSidebar" class="container-fluid page-body-wrapper">
+                <!--<nav class="sidebar sidebar-offcanvas" id="sidebar">-->
+                <nav class="sidebar sidebar-hidden" id="sidebar">
                     
                    <ul class="nav">
                     
@@ -141,9 +121,6 @@
                                <div class="profile-name">
                                   <p class="name">
                                     nome
-                                  </p>
-                                  <p class="designation">
-                                    email
                                   </p>
                                 </div>  
                           </a>
@@ -165,21 +142,17 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="true" aria-controls="page-layouts">
-                              <i class="icon-lock menu-icon"></i>
-                              <span class="menu-title">Usuários</span>
+                              <i class="icon-layout menu-icon"></i>
+                              <span class="menu-title">Serviços</span>
                               <i class="menu-arrow"></i>
                             </a>
                             <div class="collapse show" id="page-layouts">
                               <ul class="nav flex-column sub-menu">
                                 <!--<li class="nav-item"><button id="btnListar" type="button" class="btn btn-secondary btn-sm"  value="Listar" onclick="ListarUsers()"><i class="mdi mdi-loop"></i>atualizar</button></li> -->
                                 <li class="nav-item">
-                                  <a class="nav-link" href="#" onclick="ListarUsers()"></i>Listar Usuários</a>
+                                  <a class="nav-link" href="#" onclick="ListarUsers()"></i>Mega Chave App</a>
                                 </li>
-                                <li class="nav-item">
-                                  <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal-4" ></i>+Novo Usuário</a>
-                                </li>
-
-                                <!--<li class="nav-item"><button id="btnCadastrar"  data-toggle="modal" type="button" data-target="#exampleModal-4" class="btn btn-secondary btn-sm"  value="Cadastrar"><i class="fa fa-address-card"></i>cadastrar</button>
+                                                      <!--<li class="nav-item"><button id="btnCadastrar"  data-toggle="modal" type="button" data-target="#exampleModal-4" class="btn btn-secondary btn-sm"  value="Cadastrar"><i class="fa fa-address-card"></i>cadastrar</button>
                                 </li>-->
                               </ul>
                             </div>
@@ -191,10 +164,13 @@
                     <div class="content-wrapper">
                        <div class="row">
                           <div class="card" style="position: relative; width: 100%;">
-                             <div class="card-body">
-                                <p class="card-title">Lista de usuários do aplicativo:</p>
+                             <div id="CorpoCard" class="card-body" style="display:none">
+                                <p class="card-title">Serviços > Mega Chave App</p>
+                                   <button type="button" class="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal-4"><i class="mdi mdi-account"></i>cadastrar</button>
+                                   <button type="button" class="btn btn-outline-info" onclick="ListarUsers()"><i class="mdi mdi-loop"></i></button>
+                                    <input id="txtPesquisa" type="search" onkeypress="return runSearch(event)">
                                    <table id = "tbUsers">
-                                    <thead>
+                                       <thead>
                                           <tr id="trHead" class = "trHeadClass">
                                                                       
                                           </tr> 
@@ -261,7 +237,7 @@
                         <div class="modal-content">
                             <div class="auth-form-light text-left p-5">
                                 <h2>Login</h2>
-                                <h4 class="font-weight-light">Mega Chave App Admin</h4>
+                                <h4 class="font-weight-light">Mega News Admin</h4>
                                 <form id="form-login" class="pt-5">
                                   <div class="form-group">
                                     
