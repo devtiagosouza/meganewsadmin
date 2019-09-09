@@ -1,7 +1,6 @@
 ﻿/*INJECT SCRIPTS*/
 [
      'Settings.js',
-     'Config.js',
      'CadastroAcesso.js',
      'Runtime.js'
 ].
