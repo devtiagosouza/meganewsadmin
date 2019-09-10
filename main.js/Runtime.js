@@ -218,13 +218,16 @@ query.find()
 .then(
   (results) => 
   {
+    console.log(results);
      var obj = results[0].attributes;
+    
+     
      var nomeUsuario = obj.Usuario;
      
       if (TemLoginCriado(obj))
       {
         CloseLoading();
-        swal('login','Login ou senha inválidos','error');
+        swal('Inválido','Login ou senha inválidos','error');
        
       }
       else
