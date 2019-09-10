@@ -56,18 +56,30 @@ function onLogin(form)
       ShowLoading();
       Parse.User.logIn(email,senha).then(
         (user) => {
-        // Do stuff after successful login
-         // console.log(user);
-            
+             CloseLoading();
+             doLoginOK();
+        }
+      ).catch(
+          (error) => {
+            CloseLoading();
+            swal("Inválido","Login e/ou senha inválidos","error");
+          }
+          //verifica se existe o usuario 
+      ); 
+
+     /*
+      Parse.User.logIn(email,senha).then(
+        (user) => {
              CloseLoading();
              doLoginOK();
          }
       ).catch(
+          
           (error) => {
             VerificaSeEhAdmin(email);
           }
           //verifica se existe o usuario 
-      );    
+      );    */
 }
 
 function onCriarUsuario(form)
@@ -170,6 +182,14 @@ function ShowLogin()
   });
 }
 
+function ShowMenu()
+{
+   $('body').removeClass();
+}
+function CloseMenu()
+{
+   $('body').addMenu("sidebar-icon-only");
+}
 
 
 function doLoginOK()
@@ -194,14 +214,14 @@ try
   $('#comboUsuario').show();
   $('#divSidebar').show();
 
-  $('#btnMenu').click();
+
+   ShowMenu();
 
   
-
 }
 catch(e)
 {
-
+  console.log(e);
 }
 }
 function CloseLogin()
@@ -346,8 +366,10 @@ function verificalogin()
     if (currentUser) {
         ShowBody();
         doLoginOK();
+        
     } else {
-        ShowLogin();
+      
+         ShowLogin();
     }
 }
 

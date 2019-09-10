@@ -213,6 +213,14 @@ function AdicionaHeaders()
 
 function ListarUsers(filter = "")
 {
+    var currentUser = Parse.User.current();
+    if (currentUser) {
+        
+    } else {
+        swal("Você não está logado","Atenção","error");
+        return;
+    }
+
    var cardbody = document.getElementById("CorpoCard");
    if (cardbody.style.display == "none") 
    {
