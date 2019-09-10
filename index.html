@@ -36,17 +36,18 @@
     <script src="vendors/sweetalert/sweetalert.min.js"></script>
     <script src="vendors/jquery.avgrund/jquery.avgrund.min.js"></script>
     <link rel="stylesheet" href="main.css/index.css" >
+    <link rel="shortcut icon" href="images/favicon.png" />
 </head>
 
-<body class="sidebar-icon-only">
+<body class="sidebar sidebar-hidden">
      <script src="vendors/jquery-validation/jquery.validate.min.js"></script>
     
     <div class="container-scroller">  
             <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row navbar-primary">
                  
                   <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                   <!-- <a class="navbar-brand brand-logo"><img src="images/logo-inteiro.png" id="logo" alt="logo"/></a>
-                    <a class="navbar-brand brand-logo-mini"><img src="images/logo-mini.png" id="LogoMini" alt="logo"/></a>-->
+                    <a class="navbar-brand brand-logo"><img src="images/logo-inteiro.png" id="logo" alt="logo"/></a>
+                    <a class="navbar-brand brand-logo-mini"><img src="images/logo-mini.png" id="LogoMini" alt="logo"/></a>
                   </div>
                    
                 <div class="navbar-menu-wrapper d-flex align-items-stretch">
@@ -61,7 +62,7 @@
                       </li>
                       <li class="nav-item">
                           <div class="nav-link form-inline mt-2 mt-md-0 d-none d-lg-flex search">
-                            <span><h3> Mega News Admin</h3></span> 
+                            <span><h4> Mega News Admin</h4></span> 
                           </div>
                        </li>
                       <!-- <li class="nav-item">
@@ -108,7 +109,7 @@
 
            <div id="divSidebar" class="container-fluid page-body-wrapper">
                 <!--<nav class="sidebar sidebar-offcanvas" id="sidebar">-->
-                <nav class="sidebar sidebar-hidden" id="sidebar">
+                <nav class="sidebar sidebar-offcanvas" id="sidebar">
                     
                    <ul class="nav">
                     
@@ -124,6 +125,7 @@
                                   </p>
                                 </div>  
                           </a>
+                          
                           <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
                               <a class="dropdown-item" href="#">
                                   <i class="mdi mdi-cached mr-2 text-success"></i>
@@ -164,7 +166,7 @@
                     <div class="content-wrapper">
                        <div class="row">
                           <div class="card" style="position: relative; width: 100%;">
-                             <div id="CorpoCard" class="card-body" style="display:none">
+                             <div id="CorpoCard" class="card-body" style="display:none;overflow-x: auto ">
                                 <p class="card-title">Serviços > Mega Chave App</p>
                                    <button type="button" class="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal-4"><i class="mdi mdi-account"></i>cadastrar</button>
                                    <button type="button" class="btn btn-outline-info" onclick="ListarUsers()"><i class="mdi mdi-loop"></i></button>

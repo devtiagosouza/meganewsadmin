@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Pearl UI</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="vendors/puse-icons-feather/feather.css">
+  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <link rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="vendors/jquery-bar-rating/css-stars.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="images/favicon.png" />
+</head>
+<body>
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row navbar-primary">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo" href="index.html"><img src="images/logo-inteiro.png" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.png" alt="logo"/></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-stretch">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="mdi mdi-menu"></span>
+        </button>
+        <ul class="navbar-nav">
+          <li class="nav-item d-none d-lg-block">
+            <a class="nav-link">
+              <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <span><h4> Mega News Admin</h4></span> 
+          </li>
+        </ul>
+        <ul class="navbar-nav navbar-nav-right">
+
+           <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle nav-profile" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <img src="https://placehold.it/100x100" alt="image">
+              <span id="spanNomeUsuario1" class="d-none d-lg-inline">Daniel Russiel</span>
+            </a>
+            <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
+              <a class="dropdown-item" href="#">
+                <i class="mdi mdi-cached mr-2 text-success"></i>
+                Perfil
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#" onclick="Logoff()">
+                <i class="mdi mdi-logout mr-2 text-primary"></i>
+                Logoff
+              </a>
+            </div>
+          </li>
+          <li class="nav-item nav-settings d-none d-lg-block">
+            <a class="nav-link" href="#">
+              <i class="mdi mdi-backburger"></i>
+            </a>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+        <span class="mdi mdi-menu"></span>
+      </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_settings-panel.html -->
+
+        <div id="right-sidebar" class="settings-panel">
+          <i class="settings-close mdi mdi-close"></i>
+          <ul class="nav nav-tabs" id="setting-panel" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">TO DO LIST</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="chats-tab" data-toggle="tab" href="#chats-section" role="tab" aria-controls="chats-section">CHATS</a>
+            </li>
+          </ul>
+  
+        </div>
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+     
+     
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item nav-profile">
+            <div class="nav-link d-flex">
+              <div class="profile-image">
+                <img src="https://placehold.it/100x100" alt="image"/>
+                <span class="online-status online"></span> <!--change class online to offline or busy as needed-->
+              </div>
+              <div class="profile-name">
+                <p class="name">
+                  Daniel Russiel
+                </p>
+                <p class="designation">
+                  Senior Architect
+                </p>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item nav-category">
+            <span class="nav-link">Menu</span>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="true" aria-controls="page-layouts">
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">Serviços</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse show" id="page-layouts">
+              <ul class="nav flex-column sub-menu">
+                <!--<li class="nav-item"><button id="btnListar" type="button" class="btn btn-secondary btn-sm"  value="Listar" onclick="ListarUsers()"><i class="mdi mdi-loop"></i>atualizar</button></li> -->
+                <li class="nav-item">
+                  <a class="nav-link" href="#" onclick="ListarUsers()"></i>Mega Chave App</a>
+                </li>
+                                      <!--<li class="nav-item"><button id="btnCadastrar"  data-toggle="modal" type="button" data-target="#exampleModal-4" class="btn btn-secondary btn-sm"  value="Cadastrar"><i class="fa fa-address-card"></i>cadastrar</button>
+                </li>-->
+              </ul>
+            </div>
+          </li>
+         
+        </ul>
+      </nav>
+      <!-- partial -->
+     
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+  <!-- plugins:js -->
+  <script src="vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <script src="vendors/chart.js/Chart.min.js"></script>
+  <script src="vendors/jquery-bar-rating/jquery.barrating.min.js"></script>
+  <script src="vendors/jquery-sparkline/jquery.sparkline.min.js"></script>
+  <script src="vendors/progressbar.js/progressbar.min.js"></script>
+  <!-- End plugin js for this page-->
+  <!-- inject:js -->
+  <script src="js/off-canvas.js"></script>
+  <script src="js/hoverable-collapse.js"></script>
+  <script src="js/misc.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="js/dashboard.js"></script>
+  <!-- End custom js for this page-->
+</body>
+
+</html>
