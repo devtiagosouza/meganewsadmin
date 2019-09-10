@@ -211,38 +211,41 @@ function CloseLogin()
 
 function VerificaSeEhAdmin(aEmail)
 {
-const Usuarios = Parse.Object.extend('Usuarios');
-const query = new Parse.Query(Usuarios);
-query.equalTo("Email", aEmail);
-query.find()
-.then(
-  (results) => 
-  {
-    console.log(results);
-     var obj = results[0].attributes;
-    
-     
-     var nomeUsuario = obj.Usuario;
-     
-      if (TemLoginCriado(obj))
+    const Usuarios = Parse.Object.extend('Usuarios');
+    const query = new Parse.Query(Usuarios);
+    query.equalTo("Email", aEmail);
+    query.find()
+    .then(
+      (results) => 
       {
-        CloseLoading();
-        swal('Inválido','Login ou senha inválidos','error');
-       
-      }
-      else
-      {
-      
-        CadastraNovoAdmin(aEmail,nomeUsuario);
-      }
+          try
+          {
+               var obj = results[0].attributes;
+               var nomeUsuario = obj.Usuario;
+              
+                if (TemLoginCriado(obj))
+                {
+                  CloseLoading();
+                  swal('Inválido','Login ou senha inválidos','error');
+                }
+                else
+                {
+                  CadastraNovoAdmin(aEmail,nomeUsuario);
+                }
+          }
+          catch(e)
+          {
+           console.log(e);
+          }
+            
 
-  },
-  (error) => {
-     CloseLoading();
-     swal('inválido','Usuário inválido '+error,'error');
-     
-  }
-);
+      },
+      (error) => {
+        CloseLoading();
+        swal('inválido','Usuário inválido '+error,'error');
+        
+      }
+    );
 
 }
 
