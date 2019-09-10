@@ -221,7 +221,7 @@ function VerificaSeEhAdmin(aEmail)
           if (results.length == 0)
           {
               CloseLoading();
-              swal('inválido','Usuário inválido '+error,'error');
+              swal('inválido','Usuário inválido ');
               console.log(results);
           }
           else 
