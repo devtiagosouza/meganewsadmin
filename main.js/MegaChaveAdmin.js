@@ -1,4 +1,5 @@
-﻿/*INJECT SCRIPTS*/
+﻿
+/*INJECT SCRIPTS
 [
      'Settings.js',
      'CadastroAcesso.js',
@@ -11,7 +12,7 @@ forEach(script => {
   document.body.appendChild(imported); 
  
 });
-
+*/
 
 EmptyTable();
 
