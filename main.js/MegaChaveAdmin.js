@@ -19,7 +19,7 @@ function EmptyTable()
    document.querySelectorAll('.trHeadClass > th').forEach(el => el.remove());
    document.querySelectorAll('.trElement').forEach(el => el.remove());
 
-   document.querySelectorAll('div .class').forEach(el => el.remove());
+   document.querySelectorAll('.wrapper').forEach(el => el.remove());
 }
 
 
@@ -47,23 +47,67 @@ function AdicionaCard(obj)
    imgElement.className = "img-sm rounded-circle";
    imgElement.src = "https://placehold.it/100x100";
 
+   var InfoRegistro = (() => 
+   {
+       if (obj.attributes.Registrado == true)
+       {
+         if  ((obj.attributes.DataRegistro == undefined) || (obj.attributes.DataRegistro == null) || ( new Date(obj.attributes.DataRegistro).getFullYear() == 1969))
+              return "";
+         else 
+         {
+             return `registrado em ${new Date(obj.attributes.DataRegistro).toLocaleDateString("pt-BR")} `+
+             `- ${obj.attributes.ModeloAparelho} -vers.: ${obj.attributes.VersaoAndroid}`; 
+         }
+       }
+       else return "";
+   })();
+
+
 
      var divNome = document.createElement('div');
      divNome.className = "wrapper ml-3";
      var nomeUsuario = document.createElement('h6');
      nomeUsuario.className = "mb-0";
      nomeUsuario.innerHTML = '<strong>'+obj.attributes.Usuario+'</strong>';
-     var xEmail = document.createElement('small');
+
+     var xEmail = document.createElement('medium');
      xEmail.className = "text-muted mb-0";
      xEmail.innerText = obj.attributes.Email;
 
+     var xInfo =  document.createElement('small')
+     xInfo.className = "text-muted mb-0";
+     
+
      var divImagem = document.createElement('div');
      divImagem.className = "badge badge-pill badge-primary ml-auto px-1 py-1";
-     var iStatus = document.createElement('i');
-     iStatus.className = 'mdi mdi-check font-weight-bold';
-     divImagem.appendChild(iStatus);
+    ''
+     if (InfoRegistro != "")
+     {
+        var iStatus = document.createElement('i');
+        iStatus.className = 'mdi mdi-cellphone-arrow-down';
+        divImagem.appendChild(iStatus);
+      
+      
+        xInfo.innerHTML = " <br>"+InfoRegistro;    
 
-    
+  
+          var btnResetar = document.createElement('input');
+          btnResetar.type = "button";
+          btnResetar.value = "Resetar";
+          btnResetar.className = 'btn btn-warning btn-xs';
+
+          btnResetar.addEventListener('click', ResetarUser);
+          xInfo.appendChild(btnResetar);
+          
+        
+
+     }
+     
+  
+
+     var divButtons =document.createElement('div');
+
+     
      
     /* <div class="badge badge-pill badge-primary ml-auto px-1 py-1">
        <i class="mdi mdi-check font-weight-bold"></i>
@@ -72,12 +116,14 @@ function AdicionaCard(obj)
      
      divNome.appendChild(nomeUsuario);
      divNome.appendChild(xEmail);
+     divNome.appendChild(xInfo);
      divNome.appendChild(divImagem);
 
    
 
-   divPai.appendChild(imgElement);
-   divPai.appendChild(divNome);
+    divPai.appendChild(imgElement);
+    divPai.appendChild(divNome);
+    divPai.appendChild(divButtons);
    cardbody.appendChild(divPai);
 }
 
@@ -299,7 +345,7 @@ function ListarUsers(filter = "")
     .then(
       (users) => {
         EmptyTable();
-        AdicionaHeaders();
+       // AdicionaHeaders();
         users.forEach(usuario => {
             AdicionaCard(usuario);
          // AdicionaItemGrid(usuario)
