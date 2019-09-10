@@ -206,7 +206,7 @@ catch(e)
 }
 function CloseLogin()
 {
- $('#ModalLogin').modal('hide');
+   $('#ModalLogin').modal('hide');
 }
 
 function VerificaSeEhAdmin(aEmail)
@@ -237,7 +237,7 @@ query.find()
   (error) => {
      CloseLoading();
      swal('inválido','Usuário inválido '+error,'error');
-     handleParseError(error);
+     
   }
 );
 
@@ -337,6 +337,8 @@ function verificalogin()
         ShowLogin();
     }
 }
+
+
 $('#logoffLateral').hide();
 $('#fazerLogin').hide();
 $('#comboUsuario').hide();
