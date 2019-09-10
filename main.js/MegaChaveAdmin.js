@@ -10,7 +10,7 @@ function CloseLoading()
 function ShowLoading(aMessage= "Aguarde...")
 {
   $('body').loadingModal({text: aMessage});
-  $('body').loadingModal('animation', 'rotatingPlane').loadingModal('backgroundColor', 'white');
+  $('body').loadingModal('animation', 'rotatingPlane').loadingModal('backgroundColor', 'blue');
 }
 
 
@@ -18,6 +18,8 @@ function EmptyTable()
 { 
    document.querySelectorAll('.trHeadClass > th').forEach(el => el.remove());
    document.querySelectorAll('.trElement').forEach(el => el.remove());
+
+   document.querySelectorAll('div .class').forEach(el => el.remove());
 }
 
 
@@ -34,6 +36,50 @@ function ToDateTime(varDate)
                     
     return  new Date(varDate).toLocaleDateString("pt-BR",options);
 } 
+
+function AdicionaCard(obj)
+{
+   var cardbody = document.getElementById("CorpoCard");
+   var divPai = document.createElement('div');
+   divPai.className = 'wrapper d-flex align-items-center py-2 border-bottom';
+
+   var imgElement = document.createElement('img');
+   imgElement.className = "img-sm rounded-circle";
+   imgElement.src = "https://placehold.it/100x100";
+
+
+     var divNome = document.createElement('div');
+     divNome.className = "wrapper ml-3";
+     var nomeUsuario = document.createElement('h6');
+     nomeUsuario.className = "mb-0";
+     nomeUsuario.innerHTML = '<strong>'+obj.attributes.Usuario+'</strong>';
+     var xEmail = document.createElement('small');
+     xEmail.className = "text-muted mb-0";
+     xEmail.innerText = obj.attributes.Email;
+
+     var divImagem = document.createElement('div');
+     divImagem.className = "badge badge-pill badge-primary ml-auto px-1 py-1";
+     var iStatus = document.createElement('i');
+     iStatus.className = 'mdi mdi-check font-weight-bold';
+     divImagem.appendChild(iStatus);
+
+    
+     
+    /* <div class="badge badge-pill badge-primary ml-auto px-1 py-1">
+       <i class="mdi mdi-check font-weight-bold"></i>
+     </div>*/
+    
+     
+     divNome.appendChild(nomeUsuario);
+     divNome.appendChild(xEmail);
+     divNome.appendChild(divImagem);
+
+   
+
+   divPai.appendChild(imgElement);
+   divPai.appendChild(divNome);
+   cardbody.appendChild(divPai);
+}
 
 function AdicionaItemGrid (obj) 
 {           
@@ -255,8 +301,8 @@ function ListarUsers(filter = "")
         EmptyTable();
         AdicionaHeaders();
         users.forEach(usuario => {
-            
-          AdicionaItemGrid(usuario)
+            AdicionaCard(usuario);
+         // AdicionaItemGrid(usuario)
 
         });
         CloseLoading();
