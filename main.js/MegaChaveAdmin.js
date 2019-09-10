@@ -1,20 +1,4 @@
-﻿
-/*INJECT SCRIPTS
-[
-     'Settings.js',
-     'CadastroAcesso.js',
-     'Runtime.js'
-].
-forEach(script => {
-  var imported = document.createElement('script');
-  imported.src = `main.js/${script}`;
-  imported.defer = true;
-  document.body.appendChild(imported); 
- 
-});
-*/
-
-EmptyTable();
+﻿EmptyTable();
 
 
 function CloseLoading()
