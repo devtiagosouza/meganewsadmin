@@ -218,27 +218,34 @@ function VerificaSeEhAdmin(aEmail)
     .then(
       (results) => 
       {
-          try
+          if (results.length == 0)
           {
-               var obj = results[0].attributes;
-               var nomeUsuario = obj.Usuario;
-              
-                if (TemLoginCriado(obj))
+              CloseLoading();
+              swal('inválido','Usuário inválido '+error,'error');
+              console.log(results);
+          }
+          else 
+          {
+                try
                 {
-                  CloseLoading();
-                  swal('Inválido','Login ou senha inválidos','error');
+                    var obj = results[0].attributes;
+                    var nomeUsuario = obj.Usuario;
+                    
+                      if (TemLoginCriado(obj))
+                      {
+                        CloseLoading();
+                        swal('Inválido','Login ou senha inválidos','error');
+                      }
+                      else
+                      {
+                        CadastraNovoAdmin(aEmail,nomeUsuario);
+                      }
                 }
-                else
+                catch(e)
                 {
-                  CadastraNovoAdmin(aEmail,nomeUsuario);
+                console.log(e);
                 }
           }
-          catch(e)
-          {
-           console.log(e);
-          }
-            
-
       },
       (error) => {
         CloseLoading();
