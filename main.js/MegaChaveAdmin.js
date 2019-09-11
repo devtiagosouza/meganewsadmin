@@ -41,8 +41,9 @@ function AdicionaCard(obj)
 {
    var cardbody = document.getElementById("CorpoCard");
    var divPai = document.createElement('div');
+   divPai.id = obj.id;
    divPai.className = 'wrapper d-flex align-items-center py-2 border-bottom';
-
+  
    var imgElement = document.createElement('img');
    imgElement.className = "img-sm rounded-circle";
    imgElement.src = "https://placehold.it/100x100";
@@ -61,6 +62,16 @@ function AdicionaCard(obj)
        }
        else return "";
    })();
+
+
+   var Perfil = (()=> 
+                    {
+                        if (obj.attributes.Admin == true)
+                          return "Admin"
+                        else if (obj.attributes.Desenvolvedor == true)
+                          return "Desenvolvedor"
+                        else return "-";
+                    })();
 
 
 
@@ -88,7 +99,7 @@ function AdicionaCard(obj)
         divImagem.appendChild(iStatus);
       
       
-        xInfo.innerHTML = " <br>"+InfoRegistro;    
+        xInfo.innerHTML = " <br>"+InfoRegistro+" DeviceID:"+obj.attributes.DeviceId;    
 
   
           var btnResetar = document.createElement('input');
@@ -98,14 +109,38 @@ function AdicionaCard(obj)
 
           btnResetar.addEventListener('click', ResetarUser);
           xInfo.appendChild(btnResetar);
-          
-        
 
      }
-     
+
+                var AtivarButton = document.createElement('button');
+                if (obj.attributes.Ativo)
+                {
+                  AtivarButton.className="btn btn-outline-danger btn-xs"
+                  AtivarButton.innerText = 'desativar';
+                  AtivarButton.addEventListener('click', InativarUser);
+                  AtivarButton.value = 'desativar';
+                 }
+                else  
+                {
+                  AtivarButton.className="btn btn-outline-primary btn-sm"
+                  AtivarButton.innerText = 'ativar';
+                  AtivarButton.addEventListener('click', AtivarUser);
+                  AtivarButton.value = 'Ativar';
+                }
+               
+                var btnDelete = document.createElement('input');
+                btnDelete.type = "button";
+                btnDelete.value = "Excluir";
+                btnDelete.className = 'btn btn-danger btn-xs';
+  
+                              
+                btnDelete.addEventListener('click', ExcluirUser);
+                
   
 
-     var divButtons =document.createElement('div');
+              var divButtons =document.createElement('div');
+              xInfo.appendChild(AtivarButton);
+              xInfo.appendChild(btnDelete);
 
      
      
@@ -124,6 +159,12 @@ function AdicionaCard(obj)
     divPai.appendChild(imgElement);
     divPai.appendChild(divNome);
     divPai.appendChild(divButtons);
+
+    if (obj.attributes.Ativo == false) 
+    {
+      divPai.style.setProperty("text-decoration", "line-through");
+    }
+
    cardbody.appendChild(divPai);
 }
 

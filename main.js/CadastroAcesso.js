@@ -222,8 +222,8 @@ function UpdateUser(UserID, Nome, UserObject)
 
 function ExcluirUser()
 {
-   var ID = this.closest('tr').querySelector('.idUsuarioClass').innerText; 
-   var Nome = this.closest('tr').querySelector('.usuarioClass').innerText; 
+   var ID = this.closest('.wrapper.d-flex.align-items-center.py-2.border-bottom').id; 
+   var nome = this.closest('.wrapper.ml-3').querySelector('.mb-0').innerText;  
 
 
    Confirma('Confirmação',"Confirma Exclusão de Usuário?\n\n"+Nome  
@@ -257,8 +257,8 @@ function ExcluirUser()
   
 function InativarUser()
 {
-  var ID = this.closest('tr').querySelector('.idUsuarioClass').innerText; 
-  var nome = this.closest('tr').querySelector('.usuarioClass').innerText; 
+   var ID = this.closest('.wrapper.d-flex.align-items-center.py-2.border-bottom').id; 
+   var nome = this.closest('.wrapper.ml-3').querySelector('.mb-0').innerText; 
 
         UpdateUser(ID,nome, { 
            Ativo : false
@@ -268,8 +268,8 @@ function InativarUser()
 
 function AtivarUser()
 {
-  var ID = this.closest('tr').querySelector('.idUsuarioClass').innerText; 
-  var nome = this.closest('tr').querySelector('.usuarioClass').innerText; 
+  var ID = this.closest('.wrapper.d-flex.align-items-center.py-2.border-bottom').id; 
+  var nome = this.closest('.wrapper.ml-3').querySelector('.mb-0').innerText; 
 
         UpdateUser(ID,nome, { 
            Ativo : true
@@ -279,8 +279,9 @@ function AtivarUser()
 
 function ResetarUser()
 {
-   var ID = this.closest('tr').querySelector('.idUsuarioClass').innerText; 
-   var nome = this.closest('tr').querySelector('.usuarioClass').innerText; 
+   
+   var ID = this.closest('.wrapper.d-flex.align-items-center.py-2.border-bottom').id; 
+   var nome = this.closest('.wrapper.ml-3').querySelector('.mb-0').innerText; 
                      
    UpdateUser(ID,nome,
          {
