@@ -96,11 +96,14 @@ function AdicionaCard(obj)
      {
         var iStatus = document.createElement('i');
         iStatus.className = 'mdi mdi-cellphone-arrow-down';
+        
         divImagem.appendChild(iStatus);
+        
       
       
-        xInfo.innerHTML = " <br>"+InfoRegistro+" DeviceID:"+obj.attributes.DeviceId;    
-
+        xInfo.innerHTML = " "+InfoRegistro+" DeviceID:"+obj.attributes.DeviceId;    
+        var brElement = document.createElement('br');
+        xInfo.appendChild(brElement);
   
           var btnResetar = document.createElement('input');
           btnResetar.type = "button";
@@ -109,6 +112,7 @@ function AdicionaCard(obj)
 
           btnResetar.addEventListener('click', ResetarUser);
           xInfo.appendChild(btnResetar);
+      
 
      }
 
@@ -151,11 +155,13 @@ function AdicionaCard(obj)
      
      divNome.appendChild(nomeUsuario);
      divNome.appendChild(xEmail);
-     divNome.appendChild(xInfo);
+     var brElement = document.createElement('br');
+     divNome.appendChild(brElement);
      divNome.appendChild(divImagem);
+     divNome.appendChild(xInfo);
+    
 
    
-
     divPai.appendChild(imgElement);
     divPai.appendChild(divNome);
     divPai.appendChild(divButtons);
