@@ -2,6 +2,7 @@
   configuraModalLogin();
   configuraModalNovoUsuario();
   configuraModalNovoAcesso();
+ 
   //Ao exibir o modal login, esconder todos os elementos da página
 function  configuraModalNovoUsuario()
 {
@@ -16,6 +17,20 @@ function  configuraModalNovoUsuario()
         highlight: DefaultHighlight
     })
   })(jQuery);
+}
+
+function configuraModalInfoMegaChaveApp()
+{
+    (
+      function($) {
+    'use strict';
+    $('#ModalInfoMegaChaveApp').on('show.bs.modal', function(event) {
+        
+       // $('#txtLoginUsuario').val("");
+       // $('#txtLoginSenha').val("");
+    })
+    
+    })(jQuery);
 }
 
 

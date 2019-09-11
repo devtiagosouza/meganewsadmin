@@ -46,7 +46,10 @@ function AdicionaCard(obj)
   
    var imgElement = document.createElement('img');
    imgElement.className = "img-sm rounded-circle";
-   imgElement.src = "https://placehold.it/100x100";
+   imgElement.src = "https://placehold.it/100x100"
+   // "images/ic_logouser.png";
+   
+   //"https://placehold.it/100x100";
 
    var InfoRegistro = (() => 
    {
@@ -57,7 +60,7 @@ function AdicionaCard(obj)
          else 
          {
              return `registrado em ${new Date(obj.attributes.DataRegistro).toLocaleDateString("pt-BR")} `+
-             `- ${obj.attributes.ModeloAparelho} -vers.: ${obj.attributes.VersaoAndroid}`; 
+             ` em um ${obj.attributes.Manufacturer} ${obj.attributes.ModeloAparelho} - vers.: ${obj.attributes.VersaoAndroid}`; 
          }
        }
        else return "";
@@ -79,18 +82,18 @@ function AdicionaCard(obj)
      divNome.className = "wrapper ml-3";
      var nomeUsuario = document.createElement('h6');
      nomeUsuario.className = "mb-0";
-     nomeUsuario.innerHTML = '<strong>'+obj.attributes.Usuario+'</strong>';
+     nomeUsuario.innerHTML = '<a href="#"><strong>'+obj.attributes.Usuario+'</strong></a>';
 
      var xEmail = document.createElement('medium');
      xEmail.className = "text-muted mb-0";
      xEmail.innerText = obj.attributes.Email;
 
      var xInfo =  document.createElement('small')
-     xInfo.className = "text-muted mb-0";
+     xInfo.className = "text-info mb-2";
      
 
      var divImagem = document.createElement('div');
-     divImagem.className = "badge badge-pill badge-primary ml-auto px-1 py-1";
+     divImagem.className = "badge badge-pill badge-primary"; //ml-auto px-1 py-1  ;
     ''
      if (InfoRegistro != "")
      {
@@ -108,10 +111,10 @@ function AdicionaCard(obj)
           var btnResetar = document.createElement('input');
           btnResetar.type = "button";
           btnResetar.value = "Resetar";
-          btnResetar.className = 'btn btn-warning btn-xs';
+          btnResetar.className = 'btn btn-outline-warning btn-xs';
 
           btnResetar.addEventListener('click', ResetarUser);
-          xInfo.appendChild(btnResetar);
+         // xInfo.appendChild(btnResetar);
       
 
      }
@@ -119,14 +122,14 @@ function AdicionaCard(obj)
                 var AtivarButton = document.createElement('button');
                 if (obj.attributes.Ativo)
                 {
-                  AtivarButton.className="btn btn-outline-danger btn-xs"
+                  AtivarButton.className="btn btn-outline-dark btn-xs"
                   AtivarButton.innerText = 'desativar';
                   AtivarButton.addEventListener('click', InativarUser);
                   AtivarButton.value = 'desativar';
                  }
                 else  
                 {
-                  AtivarButton.className="btn btn-outline-primary btn-sm"
+                  AtivarButton.className="btn btn-outline-primary btn-xs"
                   AtivarButton.innerText = 'ativar';
                   AtivarButton.addEventListener('click', AtivarUser);
                   AtivarButton.value = 'Ativar';
@@ -134,8 +137,8 @@ function AdicionaCard(obj)
                
                 var btnDelete = document.createElement('input');
                 btnDelete.type = "button";
-                btnDelete.value = "Excluir";
-                btnDelete.className = 'btn btn-danger btn-xs';
+                btnDelete.value = "remover acesso";
+                btnDelete.className = 'btn btn-outline-danger btn-xs';
   
                               
                 btnDelete.addEventListener('click', ExcluirUser);
@@ -143,15 +146,21 @@ function AdicionaCard(obj)
   
 
               var divButtons =document.createElement('div');
-              xInfo.appendChild(AtivarButton);
-              xInfo.appendChild(btnDelete);
+              divButtons.className = "btn-group";
+              divButtons.role = "group";
+               if (btnResetar != undefined)
+               {
+                 divButtons.appendChild(btnResetar);
+               }
+              divButtons.appendChild(AtivarButton);
+              divButtons.appendChild(btnDelete);
+             
+
+            //  xInfo.appendChild(AtivarButton);
+             // xInfo.appendChild(btnDelete);
 
      
      
-    /* <div class="badge badge-pill badge-primary ml-auto px-1 py-1">
-       <i class="mdi mdi-check font-weight-bold"></i>
-     </div>*/
-    
      
      divNome.appendChild(nomeUsuario);
      divNome.appendChild(xEmail);

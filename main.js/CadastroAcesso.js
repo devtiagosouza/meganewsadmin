@@ -222,12 +222,12 @@ function UpdateUser(UserID, Nome, UserObject)
 
 function ExcluirUser()
 {
-   var ID = this.closest('.wrapper.d-flex.align-items-center.py-2.border-bottom').id; 
-   var nome = this.closest('.wrapper.ml-3').querySelector('.mb-0').innerText;  
+     
+  var ID = this.closest('.wrapper.d-flex.align-items-center.py-2.border-bottom').id;
+  var nome = this.closest('.wrapper').querySelector('.mb-0 > a').innerText;
 
 
-   Confirma('Confirmação',"Confirma Exclusão de Usuário?\n\n"+Nome  
-    )
+   Confirma('Confirmação',"Confirma Exclusão de Usuário?\n\n"+nome)
     .then((isConfirm) => {
       if (isConfirm == true)
       {
@@ -254,11 +254,17 @@ function ExcluirUser()
 
 
 }
-  
+ 
+
+
 function InativarUser()
 {
-   var ID = this.closest('.wrapper.d-flex.align-items-center.py-2.border-bottom').id; 
-   var nome = this.closest('.wrapper.ml-3').querySelector('.mb-0').innerText; 
+   
+   var ID = this.closest('.wrapper.d-flex.align-items-center.py-2.border-bottom').id;
+   var nome = this.closest('.wrapper').querySelector('.mb-0 > a').innerText;
+  
+   
+  // .querySelector('.mb-0').innerText; 
 
         UpdateUser(ID,nome, { 
            Ativo : false
@@ -268,8 +274,9 @@ function InativarUser()
 
 function AtivarUser()
 {
-  var ID = this.closest('.wrapper.d-flex.align-items-center.py-2.border-bottom').id; 
-  var nome = this.closest('.wrapper.ml-3').querySelector('.mb-0').innerText; 
+     
+  var ID = this.closest('.wrapper.d-flex.align-items-center.py-2.border-bottom').id;
+  var nome = this.closest('.wrapper').querySelector('.mb-0 > a').innerText;
 
         UpdateUser(ID,nome, { 
            Ativo : true
@@ -279,10 +286,9 @@ function AtivarUser()
 
 function ResetarUser()
 {
-   
-   var ID = this.closest('.wrapper.d-flex.align-items-center.py-2.border-bottom').id; 
-   var nome = this.closest('.wrapper.ml-3').querySelector('.mb-0').innerText; 
-                     
+    
+  var ID = this.closest('.wrapper.d-flex.align-items-center.py-2.border-bottom').id;
+  var nome = this.closest('.wrapper').querySelector('.mb-0 > a').innerText;
    UpdateUser(ID,nome,
          {
                      DeviceId : "",
