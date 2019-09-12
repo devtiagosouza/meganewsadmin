@@ -19,7 +19,7 @@ function EmptyTable()
    document.querySelectorAll('.trHeadClass > th').forEach(el => el.remove());
    document.querySelectorAll('.trElement').forEach(el => el.remove());
 
-   document.querySelectorAll('.wrapper').forEach(el => el.remove());
+   document.querySelectorAll('.corpoTabela').forEach(el => el.remove());
 }
 
 
@@ -37,9 +37,17 @@ function ToDateTime(varDate)
     return  new Date(varDate).toLocaleDateString("pt-BR",options);
 } 
 
+
+
 function AdicionaCard(obj)
 {
-   var cardbody = document.getElementById("CorpoCard");
+   var cardbody = document.getElementById("corpoTabela");
+   
+   var trElement = document.createElement('tr');
+
+   var colunaProfile = document.createElement('td')
+   var colunaUsuario = document.createElement('td');
+   var colunaAcoes = document.createElement('td');
 
   /* var bodyTable = document.createElement('tbody');
 
@@ -189,37 +197,53 @@ function AdicionaCard(obj)
                   btnDelete.type = "button";
                   btnDelete.className = 'btn btn-outline-danger icon-btn';
                   btnDelete.addEventListener('click', ExcluirUser);
-                  adicionaIcone(btnDelete,"close-circle icon-md");
+                  adicionaIcone(btnDelete,"close-circle");
                   divButtons.appendChild(btnDelete);
                 
                   return divButtons;
               }(); 
               
-    divPai.appendChild(imgProfile); //Imagem do Perfil
-    divPai.appendChild(divUsuario);
-    divPai.appendChild(
+    colunaProfile.appendChild(imgProfile); 
+    colunaUsuario.appendChild(divUsuario);
+    if (InfoRegistro != "")
+    {
+       colunaUsuario.appendChild(divInfoRegistro);
+    }
+    colunaAcoes.append(divActionButtons);
+   
+
+   // divPai.appendChild(divUsuario);
+   /* divPai.appendChild(
       function()
       {
           var br = document.createElement('br');
           return br;
       }()
-    );
-    divPai.appendChild(divInfoRegistro);
-    divPai.appendChild(
+    );*/
+  //  divPai.appendChild(divInfoRegistro);
+    /*divPai.appendChild(
         function()
         {
             var br = document.createElement('br');
             return br;
         }()
-    );
-    divPai.appendChild(divActionButtons);
+    );*/
+   // divPai.appendChild(divActionButtons);
 
     if (obj.attributes.Ativo == false) 
     {
       divPai.style.setProperty("text-decoration", "line-through");
     }
 
-   cardbody.appendChild(divPai);
+
+
+   trElement.appendChild(colunaProfile);
+   trElement.appendChild(colunaUsuario);
+   trElement.appendChild(colunaAcoes); 
+
+  // trElement.appendChild(divPai);
+
+   cardbody.appendChild(trElement);
 }
 
 function adicionaIcone(insideElement, mdiimagename)
