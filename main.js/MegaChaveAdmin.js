@@ -63,9 +63,7 @@ function AdicionaCard(obj)
 
 
  
-   var divPai = document.createElement('div');
-   divPai.id = obj.id;
-   divPai.className = 'wrapper d-flex align-items-center py-2 border-bottom';
+   
   
    var imgProfile = document.createElement('img');
    imgProfile.className = "img-sm rounded-circle";
@@ -99,7 +97,7 @@ function AdicionaCard(obj)
                     })();
 
      var divUsuario = document.createElement('div');
-     divUsuario.className = "wrapper ml-3";
+    // divUsuario.className = "wrapper ml-3";
         
 
      //Adiciona o nome do usuário
@@ -129,13 +127,13 @@ function AdicionaCard(obj)
       function()
       {
         var xInfo =  document.createElement('small')
-        xInfo.className = "d-flex justify-content-end";
+        xInfo.className = "text-success mb-0d";
         if (InfoRegistro != "")
         {
            xInfo.innerHTML = "<i class='mdi mdi-cellphone-arrow-down'></i> "+InfoRegistro+" DeviceID: "+obj.attributes.DeviceId;   
         }
-        var brElement = document.createElement('br');
-        xInfo.appendChild(brElement);
+       // var brElement = document.createElement('br');
+       // xInfo.appendChild(brElement);
         return xInfo;
       }();
 
@@ -232,7 +230,7 @@ function AdicionaCard(obj)
 
     if (obj.attributes.Ativo == false) 
     {
-      divPai.style.setProperty("text-decoration", "line-through");
+      colunaUsuario.style.setProperty("text-decoration", "line-through");
     }
 
 
