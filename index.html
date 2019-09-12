@@ -30,7 +30,7 @@
 
     <script src="js/bootstrap-table.min.js"></script>
     <script src="js/bootstrap-table-pt-BR.min.js"></script>
-
+    <link rel="stylesheet" href="vendors/jquery-toast-plugin/jquery.toast.min.css">
     
     <link rel="stylesheet" href="css/jquery.loadingModal.css">
     <script src="vendors/sweetalert/sweetalert.min.js"></script>
@@ -171,16 +171,7 @@
                                    <button type="button" class="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal-4"><i class="mdi mdi-account"></i>cadastrar</button>
                                    <button type="button" class="btn btn-outline-info" onclick="ListarUsers()"><i class="mdi mdi-loop"></i></button>
                                     <input id="txtPesquisa" type="search" onkeypress="return runSearch(event)">
-                                    <table id = "tbUsers">
-                                       <thead>
-                                          <tr id="trHead" class = "trHeadClass">
-                                                                      
-                                          </tr> 
-                                      </thead>
-                                      <tbody>
-                                              
-                                      </tbody>
-                                    </table>
+                                   
                              </div>
                           </div>
                        </div>
@@ -329,6 +320,7 @@
   <script src="js/alerts.js"></script>
   <script src="js/avgrund.js"></script>
   <script src="js/dashboard.js"></script>
+  <script src="vendors/jquery-toast-plugin/jquery.toast.min.js"></script>
 
   <script src = "main.js/MegaChaveAdmin.js"></script>
   <script src = "main.js/Settings.js"></script>

@@ -173,9 +173,22 @@ function userExists(aEmail) {
 
 }
 
-function UpdateUser(UserID, Nome, UserObject)
+function UpdateUser(UserID, Nome, UserObject, 
+  pTituloConfirmacao = "", 
+  pMensagemConfirmacao = "",
+  pMensagemSucesso = ""
+  )
 {
-     Confirma('Confirmação',"Confirma Atualização de dados?\n\n"+Nome)
+   if (pTituloConfirmacao == "")
+         pTituloConfirmacao =  'Confirmação';
+
+    if (pMensagemConfirmacao == "")
+         pMensagemConfirmacao = "Confirma Atualização de dados?\n\n"+Nome;
+
+    if (pMensagemSucesso == "")
+        pMensagemSucesso = 'Parâmetros de usuário alterados com sucesso';   
+
+     Confirma(pTituloConfirmacao, pMensagemConfirmacao)
      .then((isConfirm) => {
       if (isConfirm == true)
       {
@@ -198,9 +211,11 @@ function UpdateUser(UserID, Nome, UserObject)
           success:  function(data) {
             ListarUsers();
             CloseLoading();
+            //showSuccessToast('ok',pMensagemSucesso);
+              
             swal({
-              title: 'Sucesso!',
-              text: 'Parâmetros de usuário alterados com sucesso',
+              title: 'ok',
+              text: pMensagemSucesso,
               icon: 'success',
               button: {
                 text: "Ok",
@@ -208,7 +223,7 @@ function UpdateUser(UserID, Nome, UserObject)
                 visible: true,
                 className: "btn btn-primary"
               }
-            })
+            }) 
       
             // alert("Parâmetros de usuário alterados com sucesso")
           }
@@ -263,12 +278,16 @@ function InativarUser()
    var ID = this.closest('.wrapper.d-flex.align-items-center.py-2.border-bottom').id;
    var nome = this.closest('.wrapper').querySelector('.mb-0 > a').innerText;
   
-   
-  // .querySelector('.mb-0').innerText; 
-
-        UpdateUser(ID,nome, { 
-           Ativo : false
-        });
+  
+        UpdateUser(ID,nome, 
+            { 
+            Ativo : false,
+            },
+            "Desativar Usuário?",
+            `Usuário: ${nome}`,
+            "Usuário desativado!"
+        
+        );
   
 }
 
@@ -280,7 +299,12 @@ function AtivarUser()
 
         UpdateUser(ID,nome, { 
            Ativo : true
-        });
+        },
+        'Ativar Usuário?',
+        `Usuário: ${nome}`,
+        "Ativação Concluída"
+        
+        );
 
 }
 
@@ -300,7 +324,10 @@ function ResetarUser()
                      BuildID : "",
                      Manufacturer : "",
                      ProductName : ""
-        }
+        },
+        "Resetar instalação do usuário?",
+        `Isso permite que "${nome}" possa instalar o aplicativo em outro aparelho`,
+        "Reset concluído"
     );
 } 
 

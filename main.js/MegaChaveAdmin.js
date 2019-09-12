@@ -40,13 +40,28 @@ function ToDateTime(varDate)
 function AdicionaCard(obj)
 {
    var cardbody = document.getElementById("CorpoCard");
+
+  /* var bodyTable = document.createElement('tbody');
+
+   var table = document.createElement('table');
+   table.className ="table";
+   table.appendChild(bodyTable);
+
+
+
+   var divResponsiveTable = document.createElement('div');
+   divResponsiveTable.className="table-responsive";
+   divResponsiveTable.appendChild(table);*/
+
+
+ 
    var divPai = document.createElement('div');
    divPai.id = obj.id;
    divPai.className = 'wrapper d-flex align-items-center py-2 border-bottom';
   
-   var imgElement = document.createElement('img');
-   imgElement.className = "img-sm rounded-circle";
-   imgElement.src = "https://placehold.it/100x100"
+   var imgProfile = document.createElement('img');
+   imgProfile.className = "img-sm rounded-circle";
+   imgProfile.src = "images/ic_logouser.png"
    // "images/ic_logouser.png";
    
    //"https://placehold.it/100x100";
@@ -66,7 +81,6 @@ function AdicionaCard(obj)
        else return "";
    })();
 
-
    var Perfil = (()=> 
                     {
                         if (obj.attributes.Admin == true)
@@ -76,104 +90,129 @@ function AdicionaCard(obj)
                         else return "-";
                     })();
 
+     var divUsuario = document.createElement('div');
+     divUsuario.className = "wrapper ml-3";
+        
+
+     //Adiciona o nome do usuário
+     divUsuario.appendChild(
+        function()
+        {   
+            var nomeUsuario = document.createElement('h6');
+            nomeUsuario.className = "mb-0";
+            nomeUsuario.innerHTML = '<a href="#"><strong>'+obj.attributes.Usuario+'</strong></a>';
+            return nomeUsuario;
+        }()
+     );
+    
+     //Adiciona o email
+     divUsuario.appendChild(
+        function()
+        {
+          var textoEmail = document.createElement('medium');
+          textoEmail.className = "text-muted mb-0";
+          textoEmail.innerText = obj.attributes.Email;
+          return textoEmail;
+        }()
+     );
 
 
-     var divNome = document.createElement('div');
-     divNome.className = "wrapper ml-3";
-     var nomeUsuario = document.createElement('h6');
-     nomeUsuario.className = "mb-0";
-     nomeUsuario.innerHTML = '<a href="#"><strong>'+obj.attributes.Usuario+'</strong></a>';
+    var divInfoRegistro =
+      function()
+      {
+        var xInfo =  document.createElement('small')
+        xInfo.className = "d-flex justify-content-end";
+        if (InfoRegistro != "")
+        {
+           xInfo.innerHTML = "<i class='mdi mdi-cellphone-arrow-down'></i> "+InfoRegistro+" DeviceID: "+obj.attributes.DeviceId;   
+        }
+        var brElement = document.createElement('br');
+        xInfo.appendChild(brElement);
+        return xInfo;
+      }();
 
-     var xEmail = document.createElement('medium');
-     xEmail.className = "text-muted mb-0";
-     xEmail.innerText = obj.attributes.Email;
-
-     var xInfo =  document.createElement('small')
-     xInfo.className = "text-info mb-2";
      
-
+     
+ /*
      var divImagem = document.createElement('div');
      divImagem.className = "badge badge-pill badge-primary"; //ml-auto px-1 py-1  ;
-    ''
+   
      if (InfoRegistro != "")
      {
         var iStatus = document.createElement('i');
         iStatus.className = 'mdi mdi-cellphone-arrow-down';
         
         divImagem.appendChild(iStatus);
+      
+        xInfo.innerText = " "+InfoRegistro+" DeviceID:"+obj.attributes.DeviceId;    
         
-      
-      
-        xInfo.innerHTML = " "+InfoRegistro+" DeviceID:"+obj.attributes.DeviceId;    
         var brElement = document.createElement('br');
         xInfo.appendChild(brElement);
-  
-          var btnResetar = document.createElement('input');
-          btnResetar.type = "button";
-          btnResetar.value = "Resetar";
-          btnResetar.className = 'btn btn-outline-warning btn-xs';
+    }
+  */
+    var divActionButtons = 
+              function()
+              {
+                  var divButtons = document.createElement('div');
+                  divButtons.className = "btn-group";
+                  divButtons.role = "group";
 
-          btnResetar.addEventListener('click', ResetarUser);
-         // xInfo.appendChild(btnResetar);
-      
+                  //botão resetar
+                  if (InfoRegistro != "")
+                  {
+                      var btnResetar = document.createElement('button');
+                      btnResetar.type = "button";
+                      btnResetar.className = 'btn btn-outline-secondary icon-btn';
+                      btnResetar.addEventListener('click', ResetarUser);
+                      adicionaIcone(btnResetar,"refresh");
 
-     }
+                      divButtons.appendChild(btnResetar);
+                  }
 
-                var AtivarButton = document.createElement('button');
-                if (obj.attributes.Ativo)
-                {
-                  AtivarButton.className="btn btn-outline-dark btn-xs"
-                  AtivarButton.innerText = 'desativar';
-                  AtivarButton.addEventListener('click', InativarUser);
-                  AtivarButton.value = 'desativar';
-                 }
-                else  
-                {
-                  AtivarButton.className="btn btn-outline-primary btn-xs"
-                  AtivarButton.innerText = 'ativar';
-                  AtivarButton.addEventListener('click', AtivarUser);
-                  AtivarButton.value = 'Ativar';
-                }
-               
-                var btnDelete = document.createElement('input');
-                btnDelete.type = "button";
-                btnDelete.value = "remover acesso";
-                btnDelete.className = 'btn btn-outline-danger btn-xs';
-  
-                              
-                btnDelete.addEventListener('click', ExcluirUser);
+                  var btnAtivarDesativar = document.createElement('button');
+                  btnAtivarDesativar.className="btn btn-outline-dark icon-btn"
+                  if (obj.attributes.Ativo)
+                  {
+                    btnAtivarDesativar.addEventListener('click', InativarUser);
+                     adicionaIcone(btnAtivarDesativar,"account-off-outline");
+                   }
+                  else  
+                  {
+                    btnAtivarDesativar.addEventListener('click', AtivarUser);
+                    adicionaIcone(btnAtivarDesativar,"account-check");
+                  }
+
+                  divButtons.appendChild(btnAtivarDesativar);
+
+
+                  var btnDelete = document.createElement('button');
+                  btnDelete.type = "button";
+                  btnDelete.className = 'btn btn-outline-danger icon-btn';
+                  btnDelete.addEventListener('click', ExcluirUser);
+                  adicionaIcone(btnDelete,"close-circle icon-md");
+                  divButtons.appendChild(btnDelete);
                 
-  
-
-              var divButtons =document.createElement('div');
-              divButtons.className = "btn-group";
-              divButtons.role = "group";
-               if (btnResetar != undefined)
-               {
-                 divButtons.appendChild(btnResetar);
-               }
-              divButtons.appendChild(AtivarButton);
-              divButtons.appendChild(btnDelete);
-             
-
-            //  xInfo.appendChild(AtivarButton);
-             // xInfo.appendChild(btnDelete);
-
-     
-     
-     
-     divNome.appendChild(nomeUsuario);
-     divNome.appendChild(xEmail);
-     var brElement = document.createElement('br');
-     divNome.appendChild(brElement);
-     divNome.appendChild(divImagem);
-     divNome.appendChild(xInfo);
-    
-
-   
-    divPai.appendChild(imgElement);
-    divPai.appendChild(divNome);
-    divPai.appendChild(divButtons);
+                  return divButtons;
+              }(); 
+              
+    divPai.appendChild(imgProfile); //Imagem do Perfil
+    divPai.appendChild(divUsuario);
+    divPai.appendChild(
+      function()
+      {
+          var br = document.createElement('br');
+          return br;
+      }()
+    );
+    divPai.appendChild(divInfoRegistro);
+    divPai.appendChild(
+        function()
+        {
+            var br = document.createElement('br');
+            return br;
+        }()
+    );
+    divPai.appendChild(divActionButtons);
 
     if (obj.attributes.Ativo == false) 
     {
@@ -181,6 +220,14 @@ function AdicionaCard(obj)
     }
 
    cardbody.appendChild(divPai);
+}
+
+function adicionaIcone(insideElement, mdiimagename)
+{
+    var iElement = document.createElement("i");
+    iElement.className = `mdi mdi-${mdiimagename}`;
+
+    insideElement.appendChild(iElement);
 }
 
 function AdicionaItemGrid (obj) 
