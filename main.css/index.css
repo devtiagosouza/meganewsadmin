@@ -1,27 +1,27 @@
  
-      table {
+   /*   table {
         width: 100%;
         border-collapse: collapse;
         font-size: 12px;
-      }
+      }*/
 
-      table, td, th {
+    /*  table, td, th {
         border: 1px solid #f5f5f5;
       /*  border-top: 1px solid #f5f5f5;
         border-bottom: 1px solid #f5f5f5;*/
-      }
+     /* }
       table > td
       {
          padding: 0rem 0rem;
       }
      /* tbody > tr:hover {background-color: #f5f5f5;} */
   
-      thead > tr{
+     /* thead > tr{
            background-color: #f5f5f5;
            color: gray;
            border: 1px solid #353535;
           
-      } 
+      } */
       .infoRegistroClass {
       
         padding-right: 15px;
