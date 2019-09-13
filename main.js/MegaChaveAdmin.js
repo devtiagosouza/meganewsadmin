@@ -49,26 +49,42 @@ function AdicionaCard(obj)
    var colunaUsuario = document.createElement('td');
    var colunaAcoes = document.createElement('td');
 
-  /* var bodyTable = document.createElement('tbody');
-
-   var table = document.createElement('table');
-   table.className ="table";
-   table.appendChild(bodyTable);
+   var imgProfile = document.createElement('i');
+   imgProfile.className = "mdi mdi-account-circle icon-lg";
 
 
+   var divDropdown = document.createElement("div");
+   divDropdown.className = "dropdown show";
 
-   var divResponsiveTable = document.createElement('div');
-   divResponsiveTable.className="table-responsive";
-   divResponsiveTable.appendChild(table);*/
+   
+   var btnMenu = document.createElement('button');
+   btnMenu.className = "btn btn-dark icon-btn dropdown-toggle";
+   btnMenu.id ="dropdownMenuIconButton7";
+   btnMenu.setAttribute("data-toggle","dropdown");
+   btnMenu.setAttribute("aria-haspopup","true");
+   btnMenu.setAttribute("aria-expanded","true");
+   adicionaIcone(btnMenu,"account");
 
+   var divDropItens = document.createElement("div");
+   divDropItens.className = "dropdown-menu";
+   divDropItens.setAttribute("aria-labelledby","dropdownMenuIconButton7");
+   divDropItens.setAttribute("x-placement","top-start");
+   divDropItens.style.position = "absolute";
+   divDropItens.style.transform = "translate3d(0px, -185px, 0px); top: 0px; left: 0px; will-change: transform";
+
+   var tituloDrop = document.createElement("h6");
+   tituloDrop.className = "dropdown-header";
+   tituloDrop.innerText = "Opções";
 
  
-   
-  
-   var imgProfile = document.createElement('img');
+
+   divDropItens.appendChild(tituloDrop);
+
+
+   /*var imgProfile = document.createElement('img');
    imgProfile.className = "img-sm rounded-circle";
-   imgProfile.src = "images/ic_logouser.png"
-   // "images/ic_logouser.png";
+   imgProfile.src = "images/ic_logouser.png"*/
+
    
    //"https://placehold.it/100x100";
 
@@ -97,16 +113,18 @@ function AdicionaCard(obj)
                     })();
 
      var divUsuario = document.createElement('div');
-    // divUsuario.className = "wrapper ml-3";
         
 
      //Adiciona o nome do usuário
      divUsuario.appendChild(
         function()
         {   
-            var nomeUsuario = document.createElement('h6');
-            nomeUsuario.className = "mb-0";
-            nomeUsuario.innerHTML = '<a href="#"><strong>'+obj.attributes.Usuario+'</strong></a>';
+           
+            
+
+            var nomeUsuario = document.createElement('div');
+            nomeUsuario.className = "text-primary";
+            nomeUsuario.innerHTML = '<strong>'+obj.attributes.Usuario+'</strong>';
             return nomeUsuario;
         }()
      );
@@ -122,6 +140,7 @@ function AdicionaCard(obj)
         }()
      );
 
+  
 
     var divInfoRegistro =
       function()
@@ -132,54 +151,61 @@ function AdicionaCard(obj)
         {
            xInfo.innerHTML = "<i class='mdi mdi-cellphone-arrow-down'></i> "+InfoRegistro+" DeviceID: "+obj.attributes.DeviceId;   
         }
-       // var brElement = document.createElement('br');
-       // xInfo.appendChild(brElement);
         return xInfo;
       }();
 
-     
-     
- /*
-     var divImagem = document.createElement('div');
-     divImagem.className = "badge badge-pill badge-primary"; //ml-auto px-1 py-1  ;
-   
-     if (InfoRegistro != "")
+     var AdicionaBotaoMenu = 
+     function(insertbutton)
      {
-        var iStatus = document.createElement('i');
-        iStatus.className = 'mdi mdi-cellphone-arrow-down';
-        
-        divImagem.appendChild(iStatus);
-      
-        xInfo.innerText = " "+InfoRegistro+" DeviceID:"+obj.attributes.DeviceId;    
-        
-        var brElement = document.createElement('br');
-        xInfo.appendChild(brElement);
-    }
-  */
+       var divItem = document.createElement("div");
+       divItem.className = "dropdown-item";
+       divItem.appendChild(insertbutton);
+       return divItem;
+     };
+ 
     var divActionButtons = 
               function()
               {
+ 
+               
+
+
+
+                
+
+
+               
+
                   var divButtons = document.createElement('div');
                   divButtons.className = "btn-group";
                   divButtons.role = "group";
 
+                  divButtons.appendChild(divDropdown);
                   //botão resetar
                   if (InfoRegistro != "")
                   {
                       var btnResetar = document.createElement('button');
                       btnResetar.type = "button";
                       btnResetar.className = 'btn btn-outline-secondary icon-btn';
+                      btnResetar.setAttribute('data-id',obj.id);
+                      btnResetar.setAttribute('data-name',obj.attributes.Usuario);
                       btnResetar.addEventListener('click', ResetarUser);
                       adicionaIcone(btnResetar,"refresh");
+
+                      divDropItens.appendChild(AdicionaBotaoMenu(btnResetar));
+                       
 
                       divButtons.appendChild(btnResetar);
                   }
 
                   var btnAtivarDesativar = document.createElement('button');
-                  btnAtivarDesativar.className="btn btn-outline-dark icon-btn"
+                  btnAtivarDesativar.setAttribute('data-id',obj.id);
+                  btnAtivarDesativar.setAttribute('data-name',obj.attributes.Usuario);
+                  btnAtivarDesativar.className="btn btn-outline-dark icon-btn";
+
                   if (obj.attributes.Ativo)
                   {
-                    btnAtivarDesativar.addEventListener('click', InativarUser);
+                     btnAtivarDesativar.addEventListener('click', InativarUser);
                      adicionaIcone(btnAtivarDesativar,"account-off-outline");
                    }
                   else  
@@ -188,20 +214,24 @@ function AdicionaCard(obj)
                     adicionaIcone(btnAtivarDesativar,"account-check");
                   }
 
+                  divDropItens.appendChild(AdicionaBotaoMenu(btnAtivarDesativar));
                   divButtons.appendChild(btnAtivarDesativar);
 
 
                   var btnDelete = document.createElement('button');
                   btnDelete.type = "button";
                   btnDelete.className = 'btn btn-outline-danger icon-btn';
+                  btnDelete.setAttribute('data-id',obj.id);
+                  btnDelete.setAttribute('data-name',obj.attributes.Usuario);
                   btnDelete.addEventListener('click', ExcluirUser);
                   adicionaIcone(btnDelete,"close-circle");
                   divButtons.appendChild(btnDelete);
                 
+                  divDropItens.appendChild(AdicionaBotaoMenu(btnDelete));
                   return divButtons;
               }(); 
               
-    colunaProfile.appendChild(imgProfile); 
+    colunaProfile.appendChild(imgProfile);
     colunaUsuario.appendChild(divUsuario);
     if (InfoRegistro != "")
     {
@@ -210,36 +240,17 @@ function AdicionaCard(obj)
     colunaAcoes.append(divActionButtons);
    
 
-   // divPai.appendChild(divUsuario);
-   /* divPai.appendChild(
-      function()
-      {
-          var br = document.createElement('br');
-          return br;
-      }()
-    );*/
-  //  divPai.appendChild(divInfoRegistro);
-    /*divPai.appendChild(
-        function()
-        {
-            var br = document.createElement('br');
-            return br;
-        }()
-    );*/
-   // divPai.appendChild(divActionButtons);
-
     if (obj.attributes.Ativo == false) 
     {
       colunaUsuario.style.setProperty("text-decoration", "line-through");
     }
 
-
+    divDropdown.appendChild(btnMenu);
+    divDropdown.appendChild(divDropItens);
 
    trElement.appendChild(colunaProfile);
    trElement.appendChild(colunaUsuario);
    trElement.appendChild(colunaAcoes); 
-
-  // trElement.appendChild(divPai);
 
    cardbody.appendChild(trElement);
 }

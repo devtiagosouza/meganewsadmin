@@ -238,9 +238,8 @@ function UpdateUser(UserID, Nome, UserObject,
 function ExcluirUser()
 {
      
-  var ID = this.closest('.wrapper.d-flex.align-items-center.py-2.border-bottom').id;
-  var nome = this.closest('.wrapper').querySelector('.mb-0 > a').innerText;
-
+  var ID =  this.getAttribute('data-id');
+  var nome=this.getAttribute('data-name');
 
    Confirma('Confirmação',"Confirma Exclusão de Usuário?\n\n"+nome)
     .then((isConfirm) => {
@@ -274,12 +273,10 @@ function ExcluirUser()
 
 function InativarUser()
 {
-   
-   var ID = this.closest('.wrapper.d-flex.align-items-center.py-2.border-bottom').id;
-   var nome = this.closest('.wrapper').querySelector('.mb-0 > a').innerText;
-  
-  
-        UpdateUser(ID,nome, 
+ var ID =  this.getAttribute('data-id');
+ var nome=this.getAttribute('data-name');
+ 
+   UpdateUser(ID,nome, 
             { 
             Ativo : false,
             },
@@ -294,8 +291,8 @@ function InativarUser()
 function AtivarUser()
 {
      
-  var ID = this.closest('.wrapper.d-flex.align-items-center.py-2.border-bottom').id;
-  var nome = this.closest('.wrapper').querySelector('.mb-0 > a').innerText;
+  var ID =  this.getAttribute('data-id');
+  var nome=this.getAttribute('data-name');
 
         UpdateUser(ID,nome, { 
            Ativo : true
@@ -311,8 +308,8 @@ function AtivarUser()
 function ResetarUser()
 {
     
-  var ID = this.closest('.wrapper.d-flex.align-items-center.py-2.border-bottom').id;
-  var nome = this.closest('.wrapper').querySelector('.mb-0 > a').innerText;
+  var ID =  this.getAttribute('data-id');
+  var nome=this.getAttribute('data-name');
    UpdateUser(ID,nome,
          {
                      DeviceId : "",
