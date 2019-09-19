@@ -41,7 +41,7 @@
 
 <body class="sidebar sidebar-hidden">
      <script src="vendors/jquery-validation/jquery.validate.min.js"></script>
-    
+     
     <div class="container-scroller">  
             <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row navbar-primary">
                  
@@ -80,7 +80,7 @@
                           <span id="spanNomeUsuario1" class="d-none d-lg-inline"></span>
                         </a>
                         <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
-                          <a class="dropdown-item" href="#">
+                          <a class="dropdown-item" href="#" onclick="AbrirPerfil()">
                            <i class="mdi mdi-cached mr-2 text-success"></i>
                              Perfil
                           </a>
@@ -127,7 +127,7 @@
                           </a>
                           
                           <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
-                              <a class="dropdown-item" href="#">
+                              <a class="dropdown-item" href="#" onclick="AbrirPerfil()"> 
                                   <i class="mdi mdi-cached mr-2 text-success"></i>
                                     Perfil
                                  </a>
@@ -165,14 +165,13 @@
                 <div class="main-panel" id="divBotoesPrincipais">
                     <div class="content-wrapper" style=" padding: 0.3rem 0.3rem; " >
                       <div class="card" stype="padding: 0rem 0rem;"> 
-                         <!-- <div class="card" style="position: relative; width: 100%;">-->
                               <div id="CorpoCard" class="card-body" style=" padding: 0.3rem 0.3rem ; display:none;overflow-x: auto ">
                                 <p class="card-title">Serviços > Mega Chave App</p>
                                    <button type="button" class="btn btn-outline-success"  data-toggle="modal" data-target="#exampleModal-4"><i class="mdi mdi-account"></i>cadastrar</button>
                                    <button type="button" class="btn btn-outline-info" onclick="ListarUsers()"><i class="mdi mdi-loop"></i></button>
                                     <input id="txtPesquisa" type="search" onkeypress="return runSearch(event)">
                                     <div class="table-responsive"> 
-                                       <table class="table">
+                                       <table class="ta ble">
                                           <tbody id="corpoTabela">
                                             
                                           </tbody>
@@ -188,7 +187,10 @@
        
                            
                         <footer class="footer">
-                            <div class="container-fluid clearfix">
+                            <div w3-include-html="html/_modalprofile.html">
+                              adsfafasdfsdf</div> 
+                          
+                          <div class="container-fluid clearfix">
                               <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2019 <a href="http://www.meganews.com.br/" target="_blank">Mega News</a>. Todos os direitos reservados.</span>
                             </div>
                         </footer>       
@@ -197,7 +199,7 @@
           </div>
 
     </div> <!--final do div controller-->
-
+    
               <!--MODAL CRIAR SENHA-->
                 <div class="modal fade" id="ModalCriarUsuario" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
@@ -231,7 +233,7 @@
                    
           
                  <!--MODAL LOGIN -->
-                 <div class="modal fade" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                <div class="modal fade" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="auth-form-light text-left p-5">
@@ -315,6 +317,33 @@
                 </div>
             </div>
           </div>
+
+          <!--MODAL modal profile-->
+          <div class="modal fade" id="ModalPerfil" tabindex="-1" role="document" aria-labelledby="ModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Perfil</h5>
+                          <button type="button" class="close" onclick="FecharPerfil()" >
+                            <span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                      <div class="card">
+                          <div class="card-body avatar">
+                        
+                            <img src="images/ic_logouser.png" alt="">
+                            <p class="name">nome usuario</p>
+                            <p class="designation">perfil</p>
+                          </div>
+                          <div class="card-footer">
+                             <button class="btn btn-success" onclick="MudarSenha()"><i class="mdi mdi-lock-reset"></i>mudar senha</button>
+                          </div>
+                        </div>
+                  </div>
+              </div>
+            </div>
+
+           
 
    
   <script src="js/off-canvas.js"></script>

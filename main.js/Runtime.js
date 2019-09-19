@@ -2,6 +2,7 @@
   configuraModalLogin();
   configuraModalNovoUsuario();
   configuraModalNovoAcesso();
+  configuraModalPerfil();
  
   //Ao exibir o modal login, esconder todos os elementos da página
 function  configuraModalNovoUsuario()
@@ -148,6 +149,24 @@ function configuraModalNovoAcesso()
         
         
         })(jQuery);
+}
+
+function configuraModalPerfil()
+{
+
+  (function($) {
+    'use strict';
+    $('#ModalPerfil').on('show.bs.modal', function(event) {
+   
+   
+    var modal = $(this)
+    modal.find('.name').text(Parse.User.Username);
+    modal.find('.designation').val(Parse.User.Email);
+    
+    })
+
+
+   })(jQuery);
 }
 
 

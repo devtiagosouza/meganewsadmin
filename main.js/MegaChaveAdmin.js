@@ -19,7 +19,7 @@ function EmptyTable()
    document.querySelectorAll('.trHeadClass > th').forEach(el => el.remove());
    document.querySelectorAll('.trElement').forEach(el => el.remove());
 
-   document.querySelectorAll('.corpoTabela').forEach(el => el.remove());
+   document.querySelectorAll('#corpoTabela > tr').forEach(el => el.remove());
 }
 
 
@@ -47,6 +47,7 @@ function CreateMenuActions(UserObj)
   
             var btn = document.createElement('button');
             btn.type = "button";
+            btn.style.width = "100%";
             btn.className = aclasse;
             btn.setAttribute('data-id',UserObj.id);
             btn.setAttribute('data-name',UserObj.attributes.Usuario);
@@ -58,13 +59,12 @@ function CreateMenuActions(UserObj)
       return divItem;
     };
 
-    //btn btn-light 
+  
 
     var btnMenu = document.createElement('div');
-    btnMenu.style
+   
    btnMenu.className = "dropdown-toggle text-primary";
    btnMenu.id ="dropdownMenuIconButton7";
-  // btnMenu.innerHTML =  '<strong><i class="mdi mdi-account"><a href="">'+UserObj.attributes.Usuario+'</a></i></strong>';
    btnMenu.setAttribute("data-toggle","dropdown");
    btnMenu.setAttribute("aria-haspopup","true");
    btnMenu.setAttribute("aria-expanded","true");
@@ -78,18 +78,8 @@ function CreateMenuActions(UserObj)
     var strong = document.createElement('strong');
     strong.appendChild(linkable);
 
-    
 
     btnMenu.appendChild(strong);
-
-   // adicionaIcone(btnMenu,"account");
-
-
-  /*var nomeUsuario = document.createElement('div');
-            nomeUsuario.className = "text-primary";
-            nomeUsuario.innerHTML = '<strong>'+UserObj.attributes.Usuario+'</strong>';
-   btnMenu.appendChild(nomeUsuario);*/
-
 
    var divDropItens = document.createElement("div");
    divDropItens.className = "dropdown-menu";
@@ -102,9 +92,6 @@ function CreateMenuActions(UserObj)
    var tituloDrop = document.createElement("h6");
    tituloDrop.className = "dropdown-header";
    tituloDrop.innerText = `<<${UserObj.attributes.Usuario}>>`;
-
-
-   //divDropItens.appendChild(tituloDrop);
 
    if (UserObj.attributes.Registrado)
    {
@@ -151,7 +138,6 @@ function AdicionaCard(obj)
 
    var colunaProfile = document.createElement('td')
    var colunaUsuario = document.createElement('td');
-   //var colunaAcoes = document.createElement('td');
 
    var imgProfile = document.createElement('i');
    imgProfile.className = "mdi mdi-account-circle icon-lg";
@@ -192,15 +178,7 @@ function AdicionaCard(obj)
 
      //Adiciona o nome do usuário
      divUsuario.appendChild(CreateMenuActions(obj))
-   /*  divUsuario.appendChild(
-        function()
-        {   
-            var nomeUsuario = document.createElement('div');
-            nomeUsuario.className = "text-primary";
-            nomeUsuario.innerHTML = '<strong>'+obj.attributes.Usuario+'</strong>';
-            return nomeUsuario;
-        }()
-     );*/
+
     
      //Adiciona o email
      divUsuario.appendChild(
@@ -234,10 +212,7 @@ function AdicionaCard(obj)
     {
        colunaUsuario.appendChild(divInfoRegistro);
     }
-   /* colunaAcoes.appendChild(  
-       CreateMenuActions(obj)
-    );*/
-   
+ 
 
     if (obj.attributes.Ativo == false) 
     {
@@ -247,7 +222,6 @@ function AdicionaCard(obj)
    
    trElement.appendChild(colunaProfile);
    trElement.appendChild(colunaUsuario);
-  // trElement.appendChild(colunaAcoes); 
 
    cardbody.appendChild(trElement);
 }
@@ -267,140 +241,7 @@ function adicionaIcone(insideElement, mdiimagename)
     insideElement.appendChild(iElement);
 }
 
-function AdicionaItemGrid (obj) 
-{           
-            function add(trElement,Texto, nomeClasse, idElement = "")
-            {
 
-
-              var tdElement = document.createElement('td');
-              tdElement.innerText = Texto;
-              if (idElement != "")
-              {
-                tdElement.id = idElement;
-              }
-              tdElement.className = nomeClasse;
-              if (nomeClasse == 'ativoClass')
-              {
-                tdButton = document.createElement('button');
-                if (Texto == 'Ativo')
-                {
-                  tdButton.className="btn btn-outline-danger btn-xs"
-                  tdButton.innerText = 'desativar';
-                  tdButton.addEventListener('click', InativarUser);
-                  tdButton.value = 'desativar';
-                 }
-                else  
-                {
-                   tdButton.className="btn btn-outline-primary btn-sm"
-                  tdButton.innerText = 'ativar';
-                  tdButton.addEventListener('click', AtivarUser);
-                  tdButton.value = 'Ativar';
-                }
-                tdElement.appendChild(tdButton);
-              }
-              else if (nomeClasse == "infoRegistroClass")
-              {
-                 addResetButton(tdElement);
-              }
-              else if (nomeClasse == "idUsuarioClass")
-              {
-             
-                tdElement.style.display = "none";
-              }
-
-              trElement.appendChild(tdElement);
-            }
-
-            function addDeleteButton(trElement)
-            {
-    
-               
-              var btnDelete = document.createElement('input');
-              btnDelete.type = "button";
-              btnDelete.value = "Excluir";
-              btnDelete.className = 'btn btn-danger btn-xs';
-
-                            
-              btnDelete.addEventListener('click', ExcluirUser);
-              trElement.appendChild(btnDelete);
-            }
-
-            function addResetButton(trElement)
-            {
-              var btnResetar = document.createElement('input');
-              btnResetar.type = "button";
-              btnResetar.value = "Resetar";
-              btnResetar.className = 'btn btn-warning btn-xs';
-
-              btnResetar.addEventListener('click', ResetarUser);
-              trElement.appendChild(btnResetar);
-              
-            }
-           
-                    var Perfil = (()=> 
-                    {
-                        if (obj.attributes.Admin == true)
-                          return "Admin"
-                        else if (obj.attributes.Desenvolvedor == true)
-                          return "Desenvolvedor"
-                        else return "-";
-                    })();
-
-                    var InfoRegistro = (() => 
-                    {
-                        if (obj.attributes.Registrado == true)
-                        {
-                          if  ((obj.attributes.DataRegistro == undefined) || (obj.attributes.DataRegistro == null) || ( new Date(obj.attributes.DataRegistro).getFullYear() == 1969))
-                               return "Não fez registro";
-                          else 
-                          {
-                              return `em ${new Date(obj.attributes.DataRegistro).toLocaleDateString("pt-BR")} `+
-                              `- Android ${obj.attributes.ModeloAparelho} -vers.: ${obj.attributes.VersaoAndroid}`; 
-                          }
-                        }
-                        else return "Não fez registro";
-                    })();
-
-              
-                //inicia aqui 
-                   var trElement = document.createElement('tr');
-                   trElement.className="trElement";
-
-                  add(trElement,obj.id,'idUsuarioClass');
-                  add(trElement,obj.attributes.Usuario,'usuarioClass');
-                  add(trElement,obj.attributes.Email,'emailClass');
-                 
-                  if  ((obj.attributes.createdAt == undefined) || (obj.attributes.createdAt == null) || ( new Date(obj.attributes.createdAt).getFullYear() == 1969))
-                      add(trElement,'','dataCadastroClass')
-                  else 
-                      add(trElement,ToDateTime(obj.attributes.createdAt),'dataCadastroClass');
-  
-                  if  ((obj.attributes.updatedAt == undefined) || (obj.attributes.updatedAt == null) || ( new Date(obj.attributes.updatedAt).getFullYear() == 1969))
-                      add(trElement,'','dataAtlzClass')
-                  else 
-                      add(trElement, ToDateTime(obj.attributes.updatedAt),'dataAtlzClass')
-               
-                  add(trElement,obj.attributes.DeviceId,'deviceIdClass');
-               
-                  //status
-                  add(trElement,obj.attributes.Ativo == true ? 'Ativo' : 'Inativo','ativoClass'); //(data[index].ativo  == '1') ? 'Ativo' : 'Inativo' );
-                  add(trElement, Perfil, 'perfilClass' );
-                  add(trElement, InfoRegistro, 'infoRegistroClass' );
-                 
-   
-
-                  //incluir os botões de acao
-                 // addResetButton(trElement);
-                  addDeleteButton(trElement);
-
-                  if (obj.attributes.Ativo == false) 
-                  {
-                      trElement.style.setProperty("text-decoration", "line-through");
-                  }
-                  document.querySelector('tbody').appendChild(trElement);
-          
-}
 
 
 function ShowBody()
@@ -412,36 +253,7 @@ function CloseBody()
   $('.container-scroller').hide();
 }
 
-function AdicionaHeaders()
-{
- 
-   document.querySelectorAll('.trHeadClass > th').forEach(el => el.remove());
-   
 
-
-   var theadElement = document.getElementById("trHead");
-   
-   var colunas = [
-     'usuário',
-     'e-mail de acesso',
-     'cadastro',
-     'última atlz',
-     'device ID',
-     'status',
-     'perfil',
-     'info registro',
-     'comandos'
-   ];
-
-   colunas.forEach(c => {
-      thElement = document.createElement('th');
-      thElement.innerText = c;
-
-      theadElement.appendChild(thElement);
-   });
-
-   
-}
 
 function ListarUsers(filter = "")
 {
@@ -485,10 +297,8 @@ function ListarUsers(filter = "")
     .then(
       (users) => {
         EmptyTable();
-       // AdicionaHeaders();
         users.forEach(usuario => {
             AdicionaCard(usuario);
-         // AdicionaItemGrid(usuario)
 
         });
         CloseLoading();
@@ -523,6 +333,23 @@ function runSearch(event)
   }
    return true;
 }
+
+function FecharPerfil()
+{
+  $('#ModalPerfil').modal('hide');
+}
+function AbrirPerfil()
+{
+  $('#ModalPerfil').modal({
+    keyboard : true,
+    focus : true,
+    backdrop : true
+  });
+  
+
+  
+}
+
 
 
 
