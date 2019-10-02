@@ -310,6 +310,8 @@ function ListarUsers(filter = "")
     );
 }
 
+
+
 function  txtNome_change()
 {
     textoDigitado = $('#txtNome').val();
