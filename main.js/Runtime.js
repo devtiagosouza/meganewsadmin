@@ -78,7 +78,7 @@ function onLogin(form)
       ).catch(
           (error) => {
             CloseLoading();
-            swal("Inválido","Login e/ou senha inválidos","error");
+            swal("Inválido","Login e/ou senha inválidos "+error,"error");
           }
           //verifica se existe o usuario 
       ); 
